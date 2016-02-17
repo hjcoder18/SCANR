@@ -11,3 +11,6 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
     }
 }
+
+
+//WOOT WOOT KOREY GOT IT WORKIN!!!! simple stuff actually. cool that its integrated with android studio...
