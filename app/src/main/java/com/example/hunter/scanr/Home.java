@@ -17,6 +17,3 @@ public class Home extends AppCompatActivity {
         actionBar.setIcon(R.mipmap.bstore_logo);
     }
 }
-
-
-//WOOT WOOT KOREY GOT IT WORKIN!!!! simple stuff actually. cool that its integrated with android studio...
