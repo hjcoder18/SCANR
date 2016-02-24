@@ -9,7 +9,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.main_menu);
 
         // gets the action bar for the application
         ActionBar actionBar = getSupportActionBar();
