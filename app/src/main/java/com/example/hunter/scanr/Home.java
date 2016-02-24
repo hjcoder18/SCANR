@@ -15,5 +15,7 @@ public class Home extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setIcon(R.mipmap.bstore_logo);
-    }
+
+           }
+
 }
