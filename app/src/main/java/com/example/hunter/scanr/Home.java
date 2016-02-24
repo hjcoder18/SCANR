@@ -16,6 +16,6 @@ public class Home extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setIcon(R.mipmap.bstore_logo);
 
-           }
+    }
 
 }
