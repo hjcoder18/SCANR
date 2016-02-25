@@ -7,20 +7,43 @@ import java.util.List;
  */
 public class Shelf {
     List<Bag> bags;
-    String room;
-    int roomID;
+    int shelfId;
+
+    public Shelf(int id) {
+        shelfId = id;
+    }
 
     void addBag(Bag bag) {
         bags.add(bag);
     }
 
-    // NOT SURE WE NEED THIS
-    void removeBag() {
-        // are we assuming the API is perfect with no errors?
+    void setShelfId (int id) {
+        shelfId = id;
     }
 
-    // NOT SURE WE NEED THIS
-    void display() {
-
+    int getShelfId() {
+        return shelfId;
     }
 }
+
+//input = result of scan;
+//
+//Shelf shelf = new shelf();
+//
+//shelf.setId(input);
+
+//
+//while (!isfinished) {
+//        anotherinput = result of another scan;
+//        if (anotherinput != input) {
+//        Bag temp = new Bag();
+//        temp.setid(anotherinput);
+//        ...
+//        do all the other stuff to create a bag...
+//        ...
+//        shelf.addbag(temp);
+//        }
+//        else {
+//        isfinished = true;
+//        }
+//        }

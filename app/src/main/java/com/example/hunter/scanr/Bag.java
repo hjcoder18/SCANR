@@ -11,4 +11,28 @@ public class Bag {
     String studentName;
     int studentID;
 
+    public Bag(int id) {
+        bagId = id;
+    }
+
+    void addBag(Book book) {
+        books.add(book);
+    }
+
+    void setStudentName (String name) {
+        studentName = name;
+    }
+
+    String getStudentName() {
+        return studentName;
+    }
+
+    void setStudentID (int id) {
+        studentID = id;
+    }
+
+    int getStudentID() {
+        return studentID;
+    }
+
 }
