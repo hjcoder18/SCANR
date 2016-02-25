@@ -1,28 +1,35 @@
 package com.example.hunter.scanr;
 
+import android.widget.ProgressBar;
+
 import java.util.List;
 
 /**
  * Created by Hunter on 2/24/2016.
  */
 public class Shelf {
-    List<Bag> bags;
-    int shelfId;
+    private List<Bag> bags;
+    private int shelfId;
 
     public Shelf(int id) {
         shelfId = id;
     }
 
-    void addBag(Bag bag) {
+    public void addBag(Bag bag) {
         bags.add(bag);
     }
 
-    void setShelfId (int id) {
+    public void setShelfId (int id) {
         shelfId = id;
     }
 
-    int getShelfId() {
+    public int getShelfId() {
         return shelfId;
+    }
+
+    //return the number of bags in the list
+    public double numberOfBags() {
+        return bags.size();
     }
 }
 

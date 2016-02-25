@@ -6,33 +6,51 @@ import java.util.List;
  * Created by Hunter on 2/24/2016.
  */
 public class Bag {
-    List<Book> books;
-    int bagId;
-    String studentName;
-    int studentID;
+    private List<Book> books;
+    private int bagId;
+    private String studentName;
+    private int studentID;
 
+    //non-default constructor
     public Bag(int id) {
         bagId = id;
     }
 
-    void addBag(Book book) {
+    //add a book to the list of books
+    public void addBook(Book book) {
         books.add(book);
     }
 
-    void setStudentName (String name) {
+
+    //STUDENT NAME getters and setters
+    public void setStudentName (String name) {
         studentName = name;
     }
-
-    String getStudentName() {
+    public String getStudentName() {
         return studentName;
     }
 
-    void setStudentID (int id) {
+
+    //STUDENT ID getters and setters
+    public void setStudentID (int id) {
         studentID = id;
     }
-
-    int getStudentID() {
+    public int getStudentID() {
         return studentID;
+    }
+
+
+    //ID getters and setters
+    public void setBagId (int id) {
+        bagId = id;
+    }
+    public int getBagId() {
+        return bagId;
+    }
+
+    //return the number of books in the bag...
+    public double numberOfBooks() {
+        return books.size();
     }
 
 }
