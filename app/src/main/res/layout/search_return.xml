@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.hunter.scanr.Main2Activity">
+    tools:context=".Search">
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,7 +32,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Done"
-        android:id="@+id/button5"
+        android:id="@+id/button_done"
         android:layout_alignBottom="@+id/listView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="directToSearch" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CHECK OUT BAG STUFF"
+        android:id="@+id/button3"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:onClick="directToBagContent" />
 </RelativeLayout>
