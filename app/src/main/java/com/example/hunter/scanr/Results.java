@@ -13,17 +13,17 @@ public class Results extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_return);
+        setContentView(R.layout.results);
     }
 
     public void directToSearch(View v) {
-        Intent intent = new Intent(this, Search.class);
-        startActivity(intent);
+        Intent search_act = new Intent(this, Search.class);
+        startActivity(search_act);
     }
 
     public void directToBagContent (View v) {
-        Intent intent = new Intent(this, Bag.class);
-        startActivity(intent);
+        Intent bag_act = new Intent(this, Bag.class);
+        startActivity(bag_act);
     }
 
 }

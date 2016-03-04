@@ -18,17 +18,16 @@ public class Home extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setIcon(R.mipmap.bstore_logo);
-
     }
 
     public void directToScanning(View v) {
-        Intent intent = new Intent(this, Scan.class);
-        startActivity(intent);
+        Intent scan_act = new Intent(this, Scan.class);
+        startActivity(scan_act);
     }
 
     public void directToSearch(View v) {
-        Intent intent = new Intent(this, Search.class);
-        startActivity(intent);
+        Intent search_act = new Intent(this, Search.class);
+        startActivity(search_act);
     }
 
 }

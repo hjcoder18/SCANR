@@ -15,12 +15,12 @@ public class Search extends AppCompatActivity {
     }
 
     public void directToResults (View v) {
-        Intent intent = new Intent(this, Results.class);
-        startActivity(intent);
+        Intent result_act = new Intent(this, Results.class);
+        startActivity(result_act);
     }
 
     public void redirectToMenu (View v) {
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
+        Intent home_act = new Intent(this, Home.class);
+        startActivity(home_act);
     }
 }
