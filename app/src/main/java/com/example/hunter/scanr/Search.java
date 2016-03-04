@@ -6,12 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 
 public class Search extends AppCompatActivity {
-    // testing
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
-        //setContentView(R.layout.search);
     }
 
     public void directToResults (View v) {

@@ -21,6 +21,10 @@ public class Bag extends AppCompatActivity{
     private String studentName;
     private int studentID;
 
+    public Bag() {
+        //do nothing
+    }
+
     //non-default constructor
     public Bag(int id) {
         bagId = id;
