@@ -21,7 +21,8 @@ public class Scan extends AppCompatActivity {
     //String scanData;
 
     // Patterns for the Shelf
-    Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
+    //Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
+    Pattern shelfPattern = Pattern.compile("(\\d+)");
 
 
     // Patterns for the Bag
