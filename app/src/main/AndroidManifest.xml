@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -40,18 +40,18 @@
 
         <activity
             android:name=".Results"
-            android:parentActivityName=".Home">
+            android:parentActivityName=".Search">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Home"
+                android:value=".Search"
                 />
         </activity>
         <activity
             android:name=".Bag"
-            android:parentActivityName=".Home">
+            android:parentActivityName=".Results">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Home"
+                android:value=".Results"
                 />
         </activity>
     </application>
