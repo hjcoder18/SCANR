@@ -16,10 +16,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Scan" />
-        <activity android:name=".Search" />
-        <activity android:name=".Results"/>
-        <activity android:name=".Bag" />
+        <activity
+            android:name=".Scan"
+            android:parentActivityName=".Home">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home"
+            />
+        </activity>
+        <activity
+            android:name=".Search"
+            android:parentActivityName=".Home">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home"
+                />
+        </activity>
+
+        <activity
+            android:name=".Results"
+            />
+        <activity
+            android:name=".Bag"
+            />
     </application>
 
 </manifest>
