@@ -13,9 +13,16 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Scan extends AppCompatActivity {
 
+    // Patterns
+    Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
+    Matcher shelfMatcher = shelfPattern.matcher(scanData);
+
+    
     private ArrayList<String> listy;
     private ArrayAdapter<String> adapt;
     private EditText txtInput;
