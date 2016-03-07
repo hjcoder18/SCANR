@@ -18,16 +18,15 @@ import java.util.regex.Pattern;
 
 public class Scan extends AppCompatActivity {
 
-    String scanData;
+    //String scanData;
 
     // Patterns for the Shelf
     Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
-    Matcher shelfMatcher = shelfPattern.matcher(scanData);
 
-    // Patterns for the Book
+
+    // Patterns for the Bag
     Pattern bagPattern = Pattern.compile("\\/C\\/C\\d+\\/C\\/C");
-    Matcher bagMatcher = bagPattern.matcher(scanData);
-    
+    //Matcher bagMatcher = bagPattern.matcher(scanData);
 
 
     private ArrayList<String> listy;
@@ -77,18 +76,31 @@ public class Scan extends AppCompatActivity {
         }
         @Override
         public void afterTextChanged(Editable s) {
-            if (s.length() >= 13) {
+            String scanData = s.toString();
+            if (check(scanData)) {
                 EditText Texting = (EditText)findViewById(R.id.input);
                 Texting.setText("");
             }
+            /*if (s.length() >= 13) {
+                EditText Texting = (EditText)findViewById(R.id.input);
+                Texting.setText("");
+            }*/
         }
     };
-    void check(String text) {
-        int lengthOfText = text.length();
+    boolean check(String text) {
+        /*int lengthOfText = text.length();
         if (lengthOfText >= 13) {
-            addToListy(text);
+          addToListy(text);
+        }*/
+
+        Matcher shelfMatcher = shelfPattern.matcher(text);
+        if (shelfMatcher.find()) {
+            return true;
+        } else {
+            return false;
         }
     }
+
     void addToListy(String text) {
         listy.add(text);
         adapt.notifyDataSetChanged();
