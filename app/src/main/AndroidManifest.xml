@@ -19,20 +19,17 @@
         <activity
             android:name=".Scan"
             android:parentActivityName=".Home">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Home"
-            />
+                <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".Home" />
         </activity>
         <activity
             android:name=".Search"
             android:parentActivityName=".Home">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Home"
-                />
+                <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".Home"
+                    />
         </activity>
 
         <activity
