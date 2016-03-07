@@ -18,11 +18,18 @@ import java.util.regex.Pattern;
 
 public class Scan extends AppCompatActivity {
 
-    // Patterns
+    String scanData;
+
+    // Patterns for the Shelf
     Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
     Matcher shelfMatcher = shelfPattern.matcher(scanData);
 
+    // Patterns for the Book
+    Pattern bagPattern = Pattern.compile("\\/C\\/C\\d+\\/C\\/C");
+    Matcher bagMatcher = bagPattern.matcher(scanData);
     
+
+
     private ArrayList<String> listy;
     private ArrayAdapter<String> adapt;
     private EditText txtInput;
