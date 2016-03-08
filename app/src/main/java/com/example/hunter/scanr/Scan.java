@@ -21,8 +21,7 @@ public class Scan extends AppCompatActivity {
     //String scanData;
 
     // Patterns for the Shelf
-    //Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
-    Pattern shelfPattern = Pattern.compile("(\\d+)");
+    Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
 
 
     // Patterns for the Bag
@@ -94,8 +93,9 @@ public class Scan extends AppCompatActivity {
           addToListy(text);
         }*/
 
-        Matcher shelfMatcher = shelfPattern.matcher(text);
-        if (shelfMatcher.find()) {
+        Matcher bagMatcher = bagPattern.matcher(text);
+        //Matcher shelfMatcher = shelfPattern.matcher(text);
+        if (bagMatcher.find()) {
             return true;
         } else {
             return false;
