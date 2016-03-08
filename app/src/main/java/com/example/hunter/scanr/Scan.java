@@ -93,9 +93,9 @@ public class Scan extends AppCompatActivity {
           addToListy(text);
         }*/
 
-        Matcher bagMatcher = bagPattern.matcher(text);
-        //Matcher shelfMatcher = shelfPattern.matcher(text);
-        if (bagMatcher.find()) {
+        //Matcher bagMatcher = bagPattern.matcher(text);
+        Matcher shelfMatcher = shelfPattern.matcher(text);
+        if (shelfMatcher.find()) {
             return true;
         } else {
             return false;
