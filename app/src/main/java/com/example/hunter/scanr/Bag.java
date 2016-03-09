@@ -2,9 +2,9 @@ package com.example.hunter.scanr;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Hunter on 2/24/2016.
@@ -16,6 +16,8 @@ public class Bag extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bag_content);
     }
+
+    private static final String TAG = "EntityListActivity";
 
     private ArrayList<Book> books;
     private int bagId;
@@ -43,13 +45,19 @@ public class Bag extends AppCompatActivity{
 
     //add a book to the list of books
     public void addBook(Book book) {
-        books.add(book);
+        try {
+            books.add(book);
+        } catch(Exception e) {
+            Log.d(TAG, "ERROR: Did not add the book to bag!", e);
+        }
+
     }
 
     //STUDENT NAME getters and setters
     public void setStudentName (String firstName, String lastName) {
         studentFirstName = firstName;
         studentLastName = lastName;
+        Log.i(TAG, "This will set the name of the student.");
     }
     public String getStudentName() {
         String name = studentLastName + ", " + studentFirstName;
