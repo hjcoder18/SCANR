@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 public class Home extends AppCompatActivity {
 //THIS IS A TEST TO SEE IF PUSHING IS WORKING!
     @Override
@@ -18,6 +20,15 @@ public class Home extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setIcon(R.mipmap.bstore_logo);
+
+        // test our logs
+        Shelf shelf = new Shelf("ad232");
+        Bag bag = new Bag();
+        bag.setStudentName("Hunter", "Marshall");
+        shelf.addBag(bag);
+        Book book1 = new Book(1);
+        bag.addBook(book1);
+
     }
 
     public void directToScanning(View v) {
