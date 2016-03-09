@@ -1,5 +1,6 @@
 package com.example.hunter.scanr;
 
+import android.util.Log;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
@@ -9,6 +10,9 @@ import java.util.List;
  * Created by Hunter on 2/24/2016.
  */
 public class Shelf {
+    private static final String TAG = "EntityListActivity";
+
+
     private ArrayList<Bag> bags;
     private String shelfId;   // String because we can use the barcode
     private String room;      // What room the shelf is in
@@ -24,25 +28,30 @@ public class Shelf {
     public void setShelfId (String id     ) { shelfId = id;    }
     public void setRoom    (String theRoom) { room = theRoom ; }
     public void setRange() {
-        Bag bag1 = bags.get(0);
-        String name1 = bag1.getStudentName();
+        try {
+            Bag bag1 = bags.get(0);
+            String name1 = bag1.getStudentName();
 
-        Bag bag2 = bags.get(bags.size() - 1);
-        String name2 = bag2.getStudentName();
+            Bag bag2 = bags.get(bags.size() - 1);
+            String name2 = bag2.getStudentName();
 
-        range = name1 + " - " + name2;
+            range = name1 + " - " + name2;
+        } catch (Exception e) {
+            Log.d(TAG, "Failed to set range in Bag class.", e);
+        }
     }
 
     // Getters
     public String getShelfId() { return shelfId; }
     public String getRoom   () { return room;    }
-    public String getRange()   { return range;   }
+    public String getRange  () { return range;   }
 
     // add bag to shelf
     public void addBag(Bag bag) {
         bags.add(bag);
         bag.setIndex(bags.indexOf(bag));
         if (bag.getIndex() == (bags.size() - 1) || bag.getIndex() == 0) {
+            Log.i(TAG, "setRange() was set for addBag");
             setRange();
         }
     }
