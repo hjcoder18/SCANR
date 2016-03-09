@@ -3,6 +3,7 @@ package com.example.hunter.scanr;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,13 +17,23 @@ public class Bag extends AppCompatActivity{
         setContentView(R.layout.bag_content);
     }
 
-    private List<Book> books;
+    private ArrayList<Book> books;
     private int bagId;
-    private String studentName;
+    private String studentFirstName; // used by Shelf class
+    private String studentLastName;  // used by Shelf class
     private int studentID;
+    private int position;
+    private String shelfID; //
+    private int bagIndex;  // used by Shelf class
 
+    /*88888888888888888888888888888888888888888888888888888888888888888
+      NOTES FROM Hunter
+      To be used by shelf
+        - get first bag student's last name
+        - get last bag student's last name
+    8888888888888888888888888888888888888888888888888888888888888888888*/
     public Bag() {
-        //do nothing
+        bagIndex = -1;
     }
 
     //non-default constructor
@@ -36,11 +47,13 @@ public class Bag extends AppCompatActivity{
     }
 
     //STUDENT NAME getters and setters
-    public void setStudentName (String name) {
-        studentName = name;
+    public void setStudentName (String firstName, String lastName) {
+        studentFirstName = firstName;
+        studentLastName = lastName;
     }
     public String getStudentName() {
-        return studentName;
+        String name = studentLastName + ", " + studentFirstName;
+        return name;
     }
 
 
@@ -64,6 +77,25 @@ public class Bag extends AppCompatActivity{
     //return the number of books in the bag...
     public double numberOfBooks() {
         return books.size();
+    }
+
+    public void setIndex (int ind) { bagIndex = ind; }
+    public int getIndex() { return bagIndex; }
+
+    //POSITION getters and setters
+    public void setPosition(int pos) {
+        this.position = pos;
+    }
+    public int getPosition() {
+        return position;
+    }
+
+    //SHELF getters and setters
+    public void setShelf(String shelf) {
+        shelfID = shelf;
+    }
+    public String getShelfID() {
+        return shelfID;
     }
 
 }

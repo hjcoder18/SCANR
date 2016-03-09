@@ -29,6 +29,15 @@ public class Scan extends AppCompatActivity {
     //Matcher bagMatcher = bagPattern.matcher(scanData);
 
 
+    /*88888888888888888888888888888888888888888888888888888888888888
+      88888888888888888888888888888888888888888888888888888888888888
+      NOTE FROM HUNTER
+        We will probably need an addBag method and addShelf method, which
+        just uses the ArrayList's add to add them to the array. Also,
+        it is probably a good time to change our names to something
+        more professional and more understanding.
+     888888888888888888888888888888888888888888888888888888888888888
+     888888888888888888888888888888888888888888888888888888888888888*/
     private ArrayList<String> listy;
     private ArrayAdapter<String> adapt;
     private EditText txtInput;
