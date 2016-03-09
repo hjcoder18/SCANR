@@ -12,6 +12,11 @@ import java.util.List;
 public class Shelf {
     private static final String TAG = "EntityListActivity";
 
+    /**********************************************************************
+     * Questions
+     *  - Should shelf know what room it is in?
+     *  - Should shelf know what range it has?
+     **********************************************************************/
 
     private ArrayList<Bag> bags;
     private String shelfId;   // String because we can use the barcode

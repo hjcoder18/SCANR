@@ -11,6 +11,12 @@ import java.util.ArrayList;
  */
 public class Bag extends AppCompatActivity{
 
+    /**********************************************************************
+     * Questiongs to ask
+     *  - Should bag know what shelf it is on?
+     *  - Does name come as a single string, or does first and last name come
+     *    as separate strings?
+     **********************************************************************/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +26,7 @@ public class Bag extends AppCompatActivity{
     private static final String TAG = "EntityListActivity";
 
     private ArrayList<Book> books;
-    private int bagId;
+    private String bagId;
     private String studentFirstName; // used by Shelf class
     private String studentLastName;  // used by Shelf class
     private int studentID;
@@ -39,7 +45,7 @@ public class Bag extends AppCompatActivity{
     }
 
     //non-default constructor
-    public Bag(int id) {
+    public Bag(String id) {
         bagId = id;
     }
 
@@ -75,10 +81,10 @@ public class Bag extends AppCompatActivity{
 
 
     //ID getters and setters
-    public void setBagId (int id) {
+    public void setBagId (String id) {
         bagId = id;
     }
-    public int getBagId() {
+    public String getBagId() {
         return bagId;
     }
 
