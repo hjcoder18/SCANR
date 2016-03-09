@@ -58,14 +58,6 @@ public class Shelf {
         }
     }
 
-
-
-
-
-
-
-
-
     // Returns the number of bags in the list(on the shelf)
     public double numberOfBags() {
         return bags.size();
