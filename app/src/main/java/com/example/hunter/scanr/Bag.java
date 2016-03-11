@@ -71,7 +71,6 @@ public class Bag extends AppCompatActivity{
         return name;
     }
 
-
     //STUDENT ID getters and setters
     public void setStudentID (int id) {
         studentID = id;
