@@ -6,9 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-
-import java.util.ArrayList;
 
 public class Home extends AppCompatActivity {
 //THIS IS A TEST TO SEE IF PUSHING IS WORKING!
@@ -39,7 +36,7 @@ public class Home extends AppCompatActivity {
     }
 
     public void directToScanning(View v) {
-        Intent scan_act = new Intent(this, Scan.class);
+        Intent scan_act = new Intent(this, Scan_Shelf.class);
         startActivity(scan_act);
     }
 

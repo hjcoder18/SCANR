@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -13,16 +12,18 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Scan extends AppCompatActivity {
+public class Scan_Shelf extends AppCompatActivity {
 
     //String scanData;
 
     // Patterns for the Shelf
-    //Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
-    Pattern shelfPattern = Pattern.compile("(\\d+)");
+    Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
+    //pattern we used for testing...
+    //Pattern shelfPattern = Pattern.compile("(\\d+)");
 
 
     // Patterns for the Bag
@@ -39,15 +40,14 @@ public class Scan extends AppCompatActivity {
         more professional and more understanding.
      888888888888888888888888888888888888888888888888888888888888888
      888888888888888888888888888888888888888888888888888888888888888*/
-    private ArrayList<String> listy;
+    private List<String> listy = new ArrayList<String>();
     private ArrayAdapter<String> adapt;
     private EditText txtInput;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scanning);
+        setContentView(R.layout.scanning_shelf);
         ListView livi = (ListView) findViewById(R.id.listOfBags);
         String[] items = {};
         listy = new ArrayList<>(Arrays.asList(items));
@@ -64,7 +64,7 @@ public class Scan extends AppCompatActivity {
 //            return true;
 //        }
 //        return super.onOptionsItemSelected(item);
-//        Intent myIntent = new Intent(getApplicationContext(), Scan.class);
+//        Intent myIntent = new Intent(getApplicationContext(), Scan_Shelf.class);
 //        startActivityForResult(myIntent, 0);
 //        return true;
 //    }
@@ -117,8 +117,8 @@ public class Scan extends AppCompatActivity {
         txtInput.setText("");
     }
 
-    public void redirectToMenu (View v) {
-        Intent home_act = new Intent(this, Home.class);
-        startActivity(home_act);
-    }
+//    public void redirectToMenu (View v) {
+//        Intent home_act = new Intent(this, Home.class);
+//        startActivity(home_act);
+//    }
 }

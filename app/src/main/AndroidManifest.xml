@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hunter.scanr">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -23,29 +24,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Scan"
+            android:name=".Scan_Shelf"
             android:parentActivityName=".Home">
-                <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".Home" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home" />
         </activity>
         <activity
             android:name=".Search"
             android:parentActivityName=".Home">
-                <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".Home"
-                    />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home" />
         </activity>
-
         <activity
             android:name=".Bag"
             android:parentActivityName=".Home">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Results"
-                />
+                android:value=".Results" />
         </activity>
+        <activity android:name=".Scan_Bag"></activity>
     </application>
 
 </manifest>
