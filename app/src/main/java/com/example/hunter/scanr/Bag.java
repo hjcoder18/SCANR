@@ -12,6 +12,12 @@ import java.util.List;
  */
 public class Bag extends AppCompatActivity{
 
+    /**********************************************************************
+     * Questions to ask
+     *  - Should bag know what shelf it is on? A: needs to know the aisle
+     *  - Does name come as a single string, or does first and last name come
+     *    as separate strings?
+     **********************************************************************/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,10 +28,10 @@ public class Bag extends AppCompatActivity{
 
     private List<Book> books = new ArrayList<Book>();
     private String bagId;
-    private String studentFirstName; // used by Shelf class
-    private String studentLastName;  // used by Shelf class
+    private String studentFirstName; // used by bag class
+    private String studentLastName;  // used by bag class
     private int studentID;
-    private int position;
+    private int aisle;
     private String shelfID; //
     private int bagIndex;  // used by Shelf class
 
@@ -65,6 +71,7 @@ public class Bag extends AppCompatActivity{
         return name;
     }
 
+
     //STUDENT ID getters and setters
     public void setStudentID (int id) {
         studentID = id;
@@ -90,12 +97,12 @@ public class Bag extends AppCompatActivity{
     public void setIndex (int ind) { bagIndex = ind; }
     public int getIndex() { return bagIndex; }
 
-    //POSITION getters and setters
-    public void setPosition(int pos) {
-        this.position = pos;
+    //AISLE getters and setters
+    public void setAisle(int pos) {
+        this.aisle = pos;
     }
-    public int getPosition() {
-        return position;
+    public int getAisle() {
+        return aisle;
     }
 
     //SHELF getters and setters
