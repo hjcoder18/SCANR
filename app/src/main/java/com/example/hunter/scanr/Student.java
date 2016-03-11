@@ -1,3 +1,5 @@
+package com.example.hunter.scanr;
+
 /**
  * Created by Willy on 3/11/2016.
  */
