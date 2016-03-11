@@ -12,9 +12,9 @@ public class Search extends AppCompatActivity {
         setContentView(R.layout.search);
     }
 
-    public void directToResults (View v) {
-        Intent result_act = new Intent(this, Results.class);
-        startActivity(result_act);
+    public void directToBag_Content (View v) {
+        Intent bag_act = new Intent(this, Bag.class);
+        startActivity(bag_act);
     }
 
     public void redirectToMenu (View v) {

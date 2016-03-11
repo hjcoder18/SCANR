@@ -39,16 +39,8 @@
         </activity>
 
         <activity
-            android:name=".Results"
-            android:parentActivityName=".Search">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Search"
-                />
-        </activity>
-        <activity
             android:name=".Bag"
-            android:parentActivityName=".Results">
+            android:parentActivityName=".Home">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Results"
