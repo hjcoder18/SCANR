@@ -13,6 +13,7 @@ public class Book {
     private String publisher;
     private Date copyrightDate;
     private int bookID;
+    private String classes;
 
     //book non-default constructor
     public Book(int id) {

@@ -13,11 +13,10 @@ public class Shelf {
     private static final String TAG = "EntityListActivity";
 
 
-    private ArrayList<Bag> bags;
+    private List <Bag> bags = new ArrayList<Bag>();
     private String shelfId;   // String because we can use the barcode
     private String room;      // What room the shelf is in
     private String range;     // The range of what student's is on the shelf
-    private double numOfBags; // The number of bags on the shelf
 
     // CONTRUCTORS
     public Shelf(String id) {         // Non-Default Contructor

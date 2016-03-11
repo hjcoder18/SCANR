@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Hunter on 2/24/2016.
@@ -19,8 +20,8 @@ public class Bag extends AppCompatActivity{
 
     private static final String TAG = "EntityListActivity";
 
-    private ArrayList<Book> books;
-    private int bagId;
+    private List<Book> books = new ArrayList<Book>();
+    private String bagId;
     private String studentFirstName; // used by Shelf class
     private String studentLastName;  // used by Shelf class
     private int studentID;
@@ -39,7 +40,7 @@ public class Bag extends AppCompatActivity{
     }
 
     //non-default constructor
-    public Bag(int id) {
+    public Bag(String id) {
         bagId = id;
     }
 
@@ -64,7 +65,6 @@ public class Bag extends AppCompatActivity{
         return name;
     }
 
-
     //STUDENT ID getters and setters
     public void setStudentID (int id) {
         studentID = id;
@@ -75,10 +75,10 @@ public class Bag extends AppCompatActivity{
 
 
     //ID getters and setters
-    public void setBagId (int id) {
+    public void setBagId (String id) {
         bagId = id;
     }
-    public int getBagId() {
+    public String getBagId() {
         return bagId;
     }
 
