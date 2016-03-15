@@ -23,24 +23,13 @@ public class Scan_Shelf extends AppCompatActivity {
 
     // Patterns for the Shelf
     Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
-    //pattern we used for testing...
-    //Pattern shelfPattern = Pattern.compile("(\\d+)");
+
 
 
     // Patterns for the Bag
     //Pattern bagPattern = Pattern.compile("\\/C\\/C\\d+\\/C\\/C");
     //Matcher bagMatcher = bagPattern.matcher(scanData);
 
-
-    /*88888888888888888888888888888888888888888888888888888888888888
-      88888888888888888888888888888888888888888888888888888888888888
-      NOTE FROM HUNTER
-        We will probably need an addBag method and addShelf method, which
-        just uses the ArrayList's add to add them to the array. Also,
-        it is probably a good time to change our names to something
-        more professional and more understanding.
-     888888888888888888888888888888888888888888888888888888888888888
-     888888888888888888888888888888888888888888888888888888888888888*/
 //    private List<Bag> listy = new ArrayList<Bag>();
 //    private ArrayAdapter<String> adapt;
     private EditText txtInput;
@@ -125,6 +114,10 @@ public class Scan_Shelf extends AppCompatActivity {
 
     void redirect(String textToAdd) {
         Intent bag_act = new Intent(this, Scan_Bag.class);
+        // Put string into a bundle and then pass the bundle to the new activity
+        Bundle bundle = new Bundle();
+        bundle.putString("shelfID", textToAdd);
+        bag_act.putExtras(bundle);
         startActivity(bag_act);
     }
 
