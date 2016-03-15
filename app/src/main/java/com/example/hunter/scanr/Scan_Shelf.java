@@ -112,6 +112,9 @@ public class Scan_Shelf extends AppCompatActivity {
         }
     }
 
+    /*
+     * http://www.101apps.co.za/index.php/articles/passing-data-between-activities.html
+     */
     void redirect(String textToAdd) {
         Intent bag_act = new Intent(this, Scan_Bag.class);
         // Put string into a bundle and then pass the bundle to the new activity
