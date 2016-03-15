@@ -24,6 +24,7 @@ public class Scan_Bag extends AppCompatActivity {
     private ArrayAdapter<String> adapt;
     private EditText txtInput;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

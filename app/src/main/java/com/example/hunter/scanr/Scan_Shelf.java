@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +28,7 @@ public class Scan_Shelf extends AppCompatActivity {
 
 
     // Patterns for the Bag
-    Pattern bagPattern = Pattern.compile("\\/C\\/C\\d+\\/C\\/C");
+    //Pattern bagPattern = Pattern.compile("\\/C\\/C\\d+\\/C\\/C");
     //Matcher bagMatcher = bagPattern.matcher(scanData);
 
 
@@ -40,19 +41,19 @@ public class Scan_Shelf extends AppCompatActivity {
         more professional and more understanding.
      888888888888888888888888888888888888888888888888888888888888888
      888888888888888888888888888888888888888888888888888888888888888*/
-    private List<String> listy = new ArrayList<String>();
-    private ArrayAdapter<String> adapt;
+//    private List<Bag> listy = new ArrayList<Bag>();
+//    private ArrayAdapter<String> adapt;
     private EditText txtInput;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanning_shelf);
-        ListView livi = (ListView) findViewById(R.id.listOfBags);
-        String[] items = {};
-        listy = new ArrayList<>(Arrays.asList(items));
-        adapt = new ArrayAdapter<String>(this,R.layout.list_items,R.id.txtItem,listy);
-        livi.setAdapter(adapt);
+        //ListView livi = (ListView) findViewById(R.id.listOfBags);
+        //String[] items = {};
+        //listy = new ArrayList<>(Arrays.asList(items));
+        //adapt = new ArrayAdapter<String>(this,R.layout.list_items,R.id.txtItem,listy);
+        //livi.setAdapter(adapt);
         txtInput = (EditText) findViewById(R.id.input);
         txtInput.addTextChangedListener(watchmen);
     }
@@ -81,7 +82,18 @@ public class Scan_Shelf extends AppCompatActivity {
                 //output.setText(s + "\n");
                 String textToAdd = txtInput.getText().toString();
                 //buffTheMagicDragon.append(textToAdd);
-                check(textToAdd);
+                boolean ready = check(textToAdd);
+                if(ready) {
+                    redirect(textToAdd);
+                }
+                else if (!ready){
+                    Toast.makeText(Scan_Shelf.this, "This isn't a shelf barcode...", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    System.out.println("ERROR: WE HIT THIS THING");
+                }
+                //if succeeded in finding a shelf, pass id to scan_bag and begin.
+                //else do nothing.
             }
         }
         @Override
@@ -111,11 +123,16 @@ public class Scan_Shelf extends AppCompatActivity {
         }
     }
 
-    void addToListy(String text) {
-        listy.add(text);
-        adapt.notifyDataSetChanged();
-        txtInput.setText("");
+    void redirect(String textToAdd) {
+        Intent bag_act = new Intent(this, Scan_Bag.class);
+        startActivity(bag_act);
     }
+
+//    void addToListy(String text) {
+//        listy.add(text);
+//        adapt.notifyDataSetChanged();
+//        txtInput.setText("");
+//    }
 
 //    public void redirectToMenu (View v) {
 //        Intent home_act = new Intent(this, Home.class);

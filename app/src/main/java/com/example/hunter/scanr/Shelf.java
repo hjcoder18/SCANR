@@ -53,22 +53,22 @@ public class Shelf {
     // add bag to shelf
     public void addBag(Bag bag) {
         bags.add(bag);
-        bag.setIndex(bags.indexOf(bag));
-        if (bag.getIndex() == (bags.size() - 1) || bag.getIndex() == 0) {
-            Log.i(TAG, "setRange() was set for addBag");
-            setRange();
-        }
+//        bag.setIndex(bags.indexOf(bag));
+//        if (bag.getIndex() == (bags.size() - 1) || bag.getIndex() == 0) {
+//            Log.i(TAG, "setRange() was set for addBag");
+//            setRange();
+//        }
     }
 
     // removes bag from shelf
     public void removeBag(Bag bag) {
-        int index = bag.getIndex();
-        if (index == (bags.size() - 1) || index == 0) {
-            bags.remove(index);
-            setRange();
-        } else {
-            bags.remove(index);
-        }
+        //int index = bag.getIndex();
+//        if (index == (bags.size() - 1) || index == 0) {
+//            bags.remove(index);
+//            setRange();
+//        } else {
+//            bags.remove(index);
+//        }
     }
 
     // Returns the number of bags in the list(on the shelf)

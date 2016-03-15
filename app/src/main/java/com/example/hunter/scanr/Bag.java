@@ -27,13 +27,13 @@ public class Bag extends AppCompatActivity{
     private static final String TAG = "EntityListActivity";
 
     private List<Book> books = new ArrayList<Book>();
-    private String bagId;
+    private String bagId; //the bag id is the main key and the primary key by which they are ordered...
     private String studentFirstName; // used by bag class
     private String studentLastName;  // used by bag class
     private int studentID;
     private int aisle;
     private String shelfID; //
-    private int bagIndex;  // used by Shelf class
+    //private int bagIndex;  // used by Shelf class
 
     /*88888888888888888888888888888888888888888888888888888888888888888
       NOTES FROM Hunter
@@ -42,7 +42,7 @@ public class Bag extends AppCompatActivity{
         - get last bag student's last name
     8888888888888888888888888888888888888888888888888888888888888888888*/
     public Bag() {
-        bagIndex = -1;
+        //bagIndex = -1;
     }
 
     //non-default constructor
@@ -93,8 +93,8 @@ public class Bag extends AppCompatActivity{
         return books.size();
     }
 
-    public void setIndex (int ind) { bagIndex = ind; }
-    public int getIndex() { return bagIndex; }
+//    public void setIndex (int ind) { bagIndex = ind; }
+//    public int getIndex() { return bagIndex; }
 
     //AISLE getters and setters
     public void setAisle(int pos) {
