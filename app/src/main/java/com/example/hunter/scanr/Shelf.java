@@ -7,73 +7,75 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Hunter on 2/24/2016.
+ * Rack Class
+ * This class is used to create a rack object that will have a list of bags.
+ *
+ * @author Korey MacGill, Hunter Marshall, William Montesdeoca
+ * @version 2016.0215
+ * @since 1.0
  */
 public class Shelf {
     private static final String TAG = "EntityListActivity";
 
-    /**********************************************************************
-     * Questions
-     *  - Should shelf know what room it is in?
-     *  - Should shelf know what range it has?
-     **********************************************************************/
-
     private List<Bag> bags = new ArrayList<Bag>();
-    private String shelfId;   // String because we can use the barcode
+    private String rackId;   // String because we can use the barcode
     private String room;      // What room the shelf is in
     private String range;     // The range of what student's is on the shelf
 
-    // CONTRUCTORS
+    /**
+     * Non-Default Constructor - sets the rack id
+     *
+     * @param id - id of the rack, which is the car code for the rack
+     */
     public Shelf(String id) {         // Non-Default Contructor
-        shelfId = id;
+        rackId = id;
     }
 
-    // Setters
-    public void setShelfId (String id     ) { shelfId = id;    }
-    public void setRoom    (String theRoom) { room = theRoom ; }
-    public void setRange() {
-        try {
-            Bag bag1 = bags.get(0);
-            String name1 = bag1.getStudentName();
+    /**
+     * The mutator for setting the rack id
+     * 
+     * @param id - The id of the rack.
+     */
+    public void setShelfId (String id) { rackId = id;    }
 
-            Bag bag2 = bags.get(bags.size() - 1);
-            String name2 = bag2.getStudentName();
+    /**
+     * The mutator for setting the room the rack is in.
+     *
+     * @param theRoom - The room the rack is in.
+     */
+    public void setRoom (String theRoom) { room = theRoom ; }
 
-            range = name1 + " - " + name2;
-        } catch (Exception e) {
-            Log.d(TAG, "Failed to set range in Bag class.", e);
-        }
-    }
+    /**
+     * The accessor for retrieving the rack ID
+     *
+     * @return rackId - returns a rack ID
+     */
+    public String getShelfId() { return rackId; }
 
-    // Getters
-    public String getShelfId() { return shelfId; }
+    /**
+     * The accessor for retrieving the room the rack is in
+     *
+     * @return room - returns a room
+     */
     public String getRoom   () { return room;    }
-    public String getRange  () { return range;   }
 
-    // add bag to shelf
+    /**
+     * Adds a scanned back, from the rack, to a list.
+     *
+     * @param bag - passes in the bag that needs to be added to the list
+     */
     public void addBag(Bag bag) {
         bags.add(bag);
-//        bag.setIndex(bags.indexOf(bag));
-//        if (bag.getIndex() == (bags.size() - 1) || bag.getIndex() == 0) {
-//            Log.i(TAG, "setRange() was set for addBag");
-//            setRange();
-//        }
     }
 
-    // removes bag from shelf
-    public void removeBag(Bag bag) {
-        //int index = bag.getIndex();
-//        if (index == (bags.size() - 1) || index == 0) {
-//            bags.remove(index);
-//            setRange();
-//        } else {
-//            bags.remove(index);
-//        }
-    }
-
-    // Returns the number of bags in the list(on the shelf)
+    /**
+     * Returns the number of bags in the rack
+     *
+     * @return numOfBags - returns number of bags
+     */
     public double numberOfBags() {
-        return bags.size();
+        int numOfBags = bags.size();
+        return numOfBags;
     }
 }
 
