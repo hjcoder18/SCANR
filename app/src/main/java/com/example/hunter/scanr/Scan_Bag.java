@@ -1,15 +1,27 @@
 package com.example.hunter.scanr;
 
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +32,8 @@ public class Scan_Bag extends AppCompatActivity {
 
     private static final String TAG = "ScanBagActivity";
 
+    public String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/aaTutorial";
+
     //PATTERNS
     Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
     Pattern bagPattern = Pattern.compile("\\/C\\/C\\d+\\/C\\/C");
@@ -28,11 +42,15 @@ public class Scan_Bag extends AppCompatActivity {
     private List<String> listy = new ArrayList<String>();
     private ArrayAdapter<String> adapt;
     private EditText txtInput;
+    private Button save, load;
+    private TextView viewText;
     private String shelfId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        File dir = new File(path);
+        dir.mkdirs();
 
         // Get the id from the scan-shelf activity
         Intent intentExtras = getIntent();
@@ -109,5 +127,85 @@ public class Scan_Bag extends AppCompatActivity {
         } else {
             return false;
         }
+    }
+
+    public void buttonSave (View v) {
+        File newFile = new File(path + "savedFile.txt");
+        String [] saveText = String.valueOf(txtInput.getText()).split(System.getProperty("line.separator"));
+
+        txtInput.setText("");
+
+        Toast.makeText(getApplicationContext(), "List was Saved!", Toast.LENGTH_LONG).show();
+
+        Save (newFile, saveText);
+    }
+
+    public void buttonLoad (View v) {
+        File newFile =  new File(path + "savedFile.txt");
+        String [] loadText = Load(newFile);
+
+        String finalString = "";
+
+        for (int i = 0; i < loadText.length; i++) {
+            finalString += loadText[i] + System.getProperty("line.separator");
+        }
+
+        viewText.setText(finalString);
+    }
+
+    public static void Save (File file, String [] data) {
+        FileOutputStream fos = null;
+        try{
+            fos = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {e.printStackTrace();}
+        try{
+            try{
+                for (int i = 0; i < data.length; i++) {
+                    fos.write(data[i].getBytes());
+                    if (i < data.length - 1) {
+                        fos.write("\n".getBytes());
+                    }
+                }
+            } catch (IOException e) {e.printStackTrace();}
+        }
+        finally {
+                try{
+                    fos.close();
+                } catch (IOException e) {e.printStackTrace();}
+        }
+    }
+
+    public static String [] Load(File file) {
+        FileInputStream fis = null;
+        try{
+            fis = new FileInputStream(file);
+        } catch (FileNotFoundException e) {e.printStackTrace();}
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
+        String test;
+        int num = 0;
+
+        try{
+            while ((test = br.readLine()) != null) {
+                num++;
+            }
+        } catch (IOException e) {e.printStackTrace();}
+
+        try{
+            fis.getChannel().position(0);
+        } catch (IOException e) {e.printStackTrace();}
+
+        String [] array = new String[num];
+
+        String line;
+        int count = 0;
+        try{
+            while ((line = br.readLine()) != null) {
+                array[count] = line;
+                count++;
+            }
+        } catch (IOException e) {e.printStackTrace();}
+
+        return array;
     }
 }
