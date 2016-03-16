@@ -30,7 +30,7 @@ public class Bag extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bag_content);
+        //setContentView(R.layout.bag_content);
     }
 
     private static final String TAG = "EntityListActivity";
