@@ -18,24 +18,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Scan Shelf Class
+ * This class has everything to do with the ability to scan a shelf using the scanner device.
  *
+ * @author Korey MacGill, Hunter Marshall, William Montesdeoca
+ * @version 2016.0215
+ * @since 1.0
  */
 public class Scan_Shelf extends AppCompatActivity {
-
-    //String scanData;
-
     // Patterns for the Shelf
-    Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
+    Pattern rackPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
 
-
-
-    // Patterns for the Bag
-    //Pattern bagPattern = Pattern.compile("\\/C\\/C\\d+\\/C\\/C");
-    //Matcher bagMatcher = bagPattern.matcher(scanData);
-
-//    private List<Bag> listy = new ArrayList<Bag>();
-//    private ArrayAdapter<String> adapt;
     private EditText txtInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,6 +57,9 @@ public class Scan_Shelf extends AppCompatActivity {
 //        return true;
 //    }
 
+    /**
+     * Create a new Text Watcher
+     */
     TextWatcher watchmen = new TextWatcher() {
 
         @Override
@@ -101,22 +99,26 @@ public class Scan_Shelf extends AppCompatActivity {
             }*/
         }
     };
-    boolean check(String text) {
-        /*int lengthOfText = text.length();
-        if (lengthOfText >= 13) {
-          addToListy(text);
-        }*/
 
-        Matcher shelfMatcher = shelfPattern.matcher(text);
-        if (shelfMatcher.find()) {
+    /**
+     * Checks to see if the barcode scanned matches the pattern for rack.
+     *
+     * @param text - is the pattern for the barcode that was scanned
+     * @return - returns true or false depending of if the barcode matches the pattern for shelf.
+     */
+    boolean check(String text) {
+        Matcher rackMatcher = rackPattern.matcher(text);
+        if (rackMatcher.find()) {
             return true;
         } else {
             return false;
         }
     }
 
-    /*
-     * http://www.101apps.co.za/index.php/articles/passing-data-between-activities.html
+    /**
+     * Directs the app to the scan_bag activity to allow the user to scan bags.
+     *
+     * @param textToAdd - the rack id that will be moved to the new activity
      */
     void redirect(String textToAdd) {
         Intent bag_act = new Intent(this, Scan_Bag.class);
@@ -126,15 +128,4 @@ public class Scan_Shelf extends AppCompatActivity {
         bag_act.putExtras(bundle);
         startActivity(bag_act);
     }
-
-//    void addToListy(String text) {
-//        listy.add(text);
-//        adapt.notifyDataSetChanged();
-//        txtInput.setText("");
-//    }
-
-//    public void redirectToMenu (View v) {
-//        Intent home_act = new Intent(this, Home.class);
-//        startActivity(home_act);
-//    }
 }
