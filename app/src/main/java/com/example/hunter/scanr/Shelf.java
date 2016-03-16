@@ -33,7 +33,7 @@ public class Shelf {
 
     /**
      * The mutator for setting the rack id
-     * 
+     *
      * @param id - The id of the rack.
      */
     public void setShelfId (String id) { rackId = id;    }
