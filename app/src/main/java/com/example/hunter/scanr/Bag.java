@@ -12,7 +12,7 @@ import java.util.List;
  *
  * The bags are being checked on each rack, as such the bag class represents
  * the information being held by each bag, namely the students information
- * book information has been excluded as this is outside the scope of this
+ * bag content information has been excluded as this is outside the scope of this
  * program.
  *
  * @author Korey MacGill, Hunter Marshall, William Montesdeoca
@@ -35,7 +35,6 @@ public class Bag extends AppCompatActivity{
 
     private static final String TAG = "EntityListActivity";
 
-    private List<Book> books = new ArrayList<Book>();
     private String bagId; //the bag id is the main key and the primary key by which they are ordered...
     private String studentFirstName; // used by bag class
     private String studentLastName;  // used by bag class

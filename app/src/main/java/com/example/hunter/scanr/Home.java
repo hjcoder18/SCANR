@@ -25,14 +25,6 @@ public class Home extends AppCompatActivity {
             Log.e(TAG, "Failed to create University Store Logo", e);
         }
 
-        // test our logs
-//        Shelf shelf = new Shelf("ad232");
-//        Bag bag = new Bag();
-//        bag.setStudentName("Hunter", "Marshall");
-//        shelf.addBag(bag);
-//        Book book1 = new Book(1);
-//        bag.addBook(book1);
-
     }
 
     public void directToScanning(View v) {
