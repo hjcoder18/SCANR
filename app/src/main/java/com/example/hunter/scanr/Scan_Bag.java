@@ -28,6 +28,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Activity for loading the Scan_Bag layout
+ *
+ * This activity is responsible for keeping track the number
+ * of bags being scanned and saved into a list.
+ *
+ * @author William Montesdeoca, Kory McGill, Hunter Marshall
+ * @version 3/16/2016
+ * @since 1.0
+ */
+
 public class Scan_Bag extends AppCompatActivity {
 
     private static final String TAG = "ScanBagActivity";
@@ -67,7 +78,6 @@ public class Scan_Bag extends AppCompatActivity {
         } else {
             Log.e(TAG, "ERROR: Bundle was empty when passed to scan bag activity");
         }
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanning_bag);
@@ -109,12 +119,24 @@ public class Scan_Bag extends AppCompatActivity {
         }
     };
 
+    /**
+     * This method will add the bag objects into the list
+     *
+     * @param text The string to associate the input string received
+     *             from the barcode
+     */
     void addToListy(String text) {
         listy.add(text);
         adapt.notifyDataSetChanged();
         txtInput.setText("");
     }
 
+    /**
+     * This method will check to see if the barcodes matches the patterns
+     *
+     * @param text The string to associate the input string received
+     *             from the barcode
+     */
     boolean check(String text) {
         /*int lengthOfText = text.length();
         if (lengthOfText >= 13) {
@@ -129,6 +151,12 @@ public class Scan_Bag extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method will add the Load functionality to the Save button
+     *
+     * @param v The View object that is associate it with the save
+     *          button on the screen
+     */
     public void buttonSave (View v) {
         File newFile = new File(path + "savedFile.txt");
         String [] saveText = String.valueOf(txtInput.getText()).split(System.getProperty("line.separator"));
@@ -140,6 +168,12 @@ public class Scan_Bag extends AppCompatActivity {
         Save (newFile, saveText);
     }
 
+    /**
+     * This method will add the Load functionality to the Load button
+     *
+     * @param v The View object that is associate it with the load
+     *          button on the screen
+     */
     public void buttonLoad (View v) {
         File newFile =  new File(path + "savedFile.txt");
         String [] loadText = Load(newFile);
@@ -153,6 +187,11 @@ public class Scan_Bag extends AppCompatActivity {
         viewText.setText(finalString);
     }
 
+    /**
+     * This method will save the input of the user
+     *
+     * @param file The File object that input data is saved in
+     */
     public static void Save (File file, String [] data) {
         FileOutputStream fos = null;
         try{
@@ -175,6 +214,11 @@ public class Scan_Bag extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method will display the input of the user
+     *
+     * @param file The File object that input data is displayed
+     */
     public static String [] Load(File file) {
         FileInputStream fis = null;
         try{
