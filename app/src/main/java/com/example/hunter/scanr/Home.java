@@ -32,9 +32,4 @@ public class Home extends AppCompatActivity {
         startActivity(scan_act);
     }
 
-    public void directToSearch(View v) {
-        Intent search_act = new Intent(this, Search.class);
-        startActivity(search_act);
-    }
-
 }
