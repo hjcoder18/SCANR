@@ -12,8 +12,8 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:text="SCAN"
+        android:layout_height="150dp"
+        android:text="Begin Audit"
         android:id="@+id/button_scan"
         android:background="@color/buttonColor"
         android:layout_marginTop="29dp"
@@ -22,20 +22,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="directToScanning" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:text="LOOK UP"
-        android:onClick="directToSearch"
-        android:id="@+id/button_search"
-        android:background="@color/buttonColor"
-        android:layout_below="@+id/button_scan"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="33dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:onClick="directToScanning"
+        android:textSize="35sp"
+        />
 
 </RelativeLayout>

@@ -10,11 +10,11 @@
         android:layout_height="50dp"
         android:id="@+id/input"
         android:layout_below="@+id/instructions_shelf"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="99dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginTop="27dp"
+        android:layout_alignRight="@+id/instructions_shelf"
+        android:layout_alignEnd="@+id/instructions_shelf"
+        android:layout_alignLeft="@+id/instructions_shelf"
+        android:layout_alignStart="@+id/instructions_shelf" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,5 +24,15 @@
         android:id="@+id/instructions_shelf"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="submit"
+        android:id="@+id/buttonSub"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/input"
+        android:layout_centerHorizontal="true"
+        android:onClick="Submit" />
 
 </RelativeLayout>

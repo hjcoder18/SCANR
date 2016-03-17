@@ -25,12 +25,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Activity for loading the Scan_Bag layout
- *
+ * <p/>
  * This activity is responsible for keeping track the number
  * of bags being scanned and saved into a list.
  *
@@ -43,24 +45,29 @@ public class Scan_Bag extends AppCompatActivity {
 
     private static final String TAG = "ScanBagActivity";
 
-    public String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/aaTutorial";
+    //public String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/aaTutorial";
 
     //PATTERNS
     Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
     Pattern bagPattern = Pattern.compile("\\/C\\/C\\d+\\/C\\/C");
 
     //VARIABLES
-    private List<String> listy = new ArrayList<String>();
+    private List<String> listOfBags = new ArrayList<String>();
     private ArrayAdapter<String> adapt;
     private EditText txtInput;
+    private ListView viewText;
     private Button save, load;
-    private TextView viewText;
     private String shelfId;
 
+    //timer and delay for textwatcher purposes
+    private Timer timer = new Timer();
+    private final long DELAY = 10; // 10 nano second delay
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        File dir = new File(path);
+
+        //create the save file
+        File dir = new File(getFilesDir(), "txtFile.txt");
         dir.mkdirs();
 
         // Get the id from the scan-shelf activity
@@ -81,11 +88,16 @@ public class Scan_Bag extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanning_bag);
-        ListView livi = (ListView) findViewById(R.id.listOfBags);
+        Toast.makeText(Scan_Bag.this, "the shelf id is - " + shelfId, Toast.LENGTH_SHORT).show();
+
+        save = (Button) findViewById(R.id.saveFile);
+        load = (Button) findViewById(R.id.loadFile);
+
+        ListView list = (ListView) findViewById(R.id.listOfBags);
         String[] items = {};
-        listy = new ArrayList<>(Arrays.asList(items));
-        adapt = new ArrayAdapter<String>(this,R.layout.list_items,R.id.txtItem,listy);
-        livi.setAdapter(adapt);
+        listOfBags = new ArrayList<>(Arrays.asList(items));
+        adapt = new ArrayAdapter<String>(this, R.layout.list_items, R.id.txtItem, listOfBags);
+        list.setAdapter(adapt);
         txtInput = (EditText) findViewById(R.id.input);
         txtInput.addTextChangedListener(watchmen);
     }
@@ -95,28 +107,49 @@ public class Scan_Bag extends AppCompatActivity {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
+
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (s.length() > 0 ) {
-                //TextView output = (TextView) findViewById(R.id.result);
-                //output.setText(s + "\n");
-                String textToAdd = txtInput.getText().toString();
-                //buffTheMagicDragon.append(textToAdd);
-                check(textToAdd);
+            if (timer != null) {
+                timer.cancel();
             }
         }
+
         @Override
         public void afterTextChanged(Editable s) {
-            String scanData = s.toString();
-            if (check(scanData)) {
-                EditText Texting = (EditText)findViewById(R.id.input);
-                Texting.setText("");
+            //while loop, while not equal to shelfpattern
+            if (s.length() > 0) {
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+
+                        final String textToAdd = txtInput.getText().toString();
+                        boolean ready = check(textToAdd);
+                        if (ready) {
+                            final String codeToAdd = textToAdd.replaceAll("/C", "");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    addToListy(codeToAdd);
+                                }
+                            });
+                        } else if (!ready) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    txtInput.setText("");
+                                }
+                            });
+                            Log.e(TAG, "ERROR: onTextChanged error occured");
+                        } else {
+                            Log.e(TAG, "ERROR: shouldn't happen ever...");
+                        }
+                    }
+                }, DELAY);
             }
-            /*if (s.length() >= 13) {
-                EditText Texting = (EditText)findViewById(R.id.input);
-                Texting.setText("");
-            }*/
         }
+        //after while loop save
     };
 
     /**
@@ -126,7 +159,16 @@ public class Scan_Bag extends AppCompatActivity {
      *             from the barcode
      */
     void addToListy(String text) {
-        listy.add(text);
+        listOfBags.add(text);
+        adapt.notifyDataSetChanged();
+        txtInput.setText("");
+    }
+
+    /**
+     * Clear the list after saving...
+     */
+    void clearListy() {
+        listOfBags.clear();
         adapt.notifyDataSetChanged();
         txtInput.setText("");
     }
@@ -138,13 +180,8 @@ public class Scan_Bag extends AppCompatActivity {
      *             from the barcode
      */
     boolean check(String text) {
-        /*int lengthOfText = text.length();
-        if (lengthOfText >= 13) {
-          addToListy(text);
-        }*/
-
-        Matcher shelfMatcher = shelfPattern.matcher(text);
-        if (shelfMatcher.find()) {
+        Matcher bagmatch = bagPattern.matcher(text);
+        if (bagmatch.find()) {
             return true;
         } else {
             return false;
@@ -158,14 +195,16 @@ public class Scan_Bag extends AppCompatActivity {
      *          button on the screen
      */
     public void buttonSave (View v) {
-        File newFile = new File(path + "savedFile.txt");
-        String [] saveText = String.valueOf(txtInput.getText()).split(System.getProperty("line.separator"));
+        File newFile = new File(getFilesDir() + "savedFile.txt");
+        String [] saveText = listOfBags.toArray(new String[listOfBags.size()]);
 
         txtInput.setText("");
 
-        Toast.makeText(getApplicationContext(), "List was Saved!", Toast.LENGTH_LONG).show();
+        Save(newFile, saveText);
 
-        Save (newFile, saveText);
+        Toast.makeText(getApplicationContext(), "List was Saved! clearing list", Toast.LENGTH_SHORT).show();
+
+        clearListy();
     }
 
     /**
@@ -175,16 +214,13 @@ public class Scan_Bag extends AppCompatActivity {
      *          button on the screen
      */
     public void buttonLoad (View v) {
-        File newFile =  new File(path + "savedFile.txt");
+        File newFile =  new File(getFilesDir() + "savedFile.txt");
         String [] loadText = Load(newFile);
-
         String finalString = "";
 
         for (int i = 0; i < loadText.length; i++) {
-            finalString += loadText[i] + System.getProperty("line.separator");
+            addToListy(loadText[i]);
         }
-
-        viewText.setText(finalString);
     }
 
     /**
@@ -192,25 +228,30 @@ public class Scan_Bag extends AppCompatActivity {
      *
      * @param file The File object that input data is saved in
      */
-    public static void Save (File file, String [] data) {
+    public static void Save(File file, String[] data) {
         FileOutputStream fos = null;
-        try{
+        try {
             fos = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {e.printStackTrace();}
-        try{
-            try{
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            try {
                 for (int i = 0; i < data.length; i++) {
                     fos.write(data[i].getBytes());
                     if (i < data.length - 1) {
                         fos.write("\n".getBytes());
                     }
                 }
-            } catch (IOException e) {e.printStackTrace();}
-        }
-        finally {
-                try{
-                    fos.close();
-                } catch (IOException e) {e.printStackTrace();}
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -219,36 +260,44 @@ public class Scan_Bag extends AppCompatActivity {
      *
      * @param file The File object that input data is displayed
      */
-    public static String [] Load(File file) {
+    public static String[] Load(File file) {
         FileInputStream fis = null;
-        try{
+        try {
             fis = new FileInputStream(file);
-        } catch (FileNotFoundException e) {e.printStackTrace();}
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         InputStreamReader isr = new InputStreamReader(fis);
         BufferedReader br = new BufferedReader(isr);
         String test;
         int num = 0;
 
-        try{
+        try {
             while ((test = br.readLine()) != null) {
                 num++;
             }
-        } catch (IOException e) {e.printStackTrace();}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        try{
+        try {
             fis.getChannel().position(0);
-        } catch (IOException e) {e.printStackTrace();}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        String [] array = new String[num];
+        String[] array = new String[num];
 
         String line;
         int count = 0;
-        try{
+        try {
             while ((line = br.readLine()) != null) {
                 array[count] = line;
                 count++;
             }
-        } catch (IOException e) {e.printStackTrace();}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return array;
     }
