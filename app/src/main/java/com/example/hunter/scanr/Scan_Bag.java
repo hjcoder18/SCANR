@@ -1,18 +1,17 @@
 package com.example.hunter.scanr;
 
 import android.content.Intent;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -65,6 +64,8 @@ public class Scan_Bag extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //stop keyboard popup
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         //create the save file
         File dir = new File(getFilesDir(), "txtFile.txt");
@@ -125,8 +126,9 @@ public class Scan_Bag extends AppCompatActivity {
                     public void run() {
 
                         final String textToAdd = txtInput.getText().toString();
-                        boolean ready = check(textToAdd);
-                        if (ready) {
+                        boolean isBag = checkBag(textToAdd);
+                        //if its a bag, add it to list
+                        if (isBag) {
                             final String codeToAdd = textToAdd.replaceAll("/C", "");
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -134,16 +136,36 @@ public class Scan_Bag extends AppCompatActivity {
                                     addToListy(codeToAdd);
                                 }
                             });
-                        } else if (!ready) {
+                        }
+                        //if not bag, check if its a shelf
+                        else if (!isBag) {
+                            if (checkShelf(textToAdd)) {
+                                //its the shelf, save and stop
+                                saveRack();
+                                clearList();
+                            }
+                            else {
+                                //its not the shelf, clear and start over
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(), "Please scan bag or shelf barcode", Toast.LENGTH_SHORT).show();
+                                        txtInput.setText("");
+                                    }
+                                });
+                                Log.e(TAG, "ERROR: onTextChanged error occured");
+                            }
+                        }
+                        //otherwise clear the input and output error message to log.
+                        else {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    Toast.makeText(getApplicationContext(), "Please scan bag or shelf barcode", Toast.LENGTH_SHORT).show();
                                     txtInput.setText("");
                                 }
                             });
                             Log.e(TAG, "ERROR: onTextChanged error occured");
-                        } else {
-                            Log.e(TAG, "ERROR: shouldn't happen ever...");
                         }
                     }
                 }, DELAY);
@@ -167,7 +189,7 @@ public class Scan_Bag extends AppCompatActivity {
     /**
      * Clear the list after saving...
      */
-    void clearListy() {
+    void clearList() {
         listOfBags.clear();
         adapt.notifyDataSetChanged();
         txtInput.setText("");
@@ -179,22 +201,29 @@ public class Scan_Bag extends AppCompatActivity {
      * @param text The string to associate the input string received
      *             from the barcode
      */
-    boolean check(String text) {
-        Matcher bagmatch = bagPattern.matcher(text);
-        if (bagmatch.find()) {
+    boolean checkBag(String text) {
+        Matcher bagMatch = bagPattern.matcher(text);
+        if (bagMatch.matches()) {
             return true;
         } else {
             return false;
         }
     }
 
+    boolean checkShelf(String text) {
+        Matcher shelfMatch = shelfPattern.matcher(text);
+        if (shelfMatch.matches() && text == shelfId) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     /**
      * This method will add the Load functionality to the Save button
-     *
-     * @param v The View object that is associate it with the save
-     *          button on the screen
      */
-    public void buttonSave (View v) {
+    public void saveRack () {
         File newFile = new File(getFilesDir() + "savedFile.txt");
         String [] saveText = listOfBags.toArray(new String[listOfBags.size()]);
 
@@ -204,7 +233,7 @@ public class Scan_Bag extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(), "List was Saved! clearing list", Toast.LENGTH_SHORT).show();
 
-        clearListy();
+        clearList();
     }
 
     /**
