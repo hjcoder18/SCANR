@@ -1,6 +1,7 @@
 package com.example.hunter.scanr;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.LogRecord;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -89,7 +91,7 @@ public class Scan_Bag extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanning_bag);
-        Toast.makeText(Scan_Bag.this, "the shelf id is - " + shelfId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(Scan_Bag.this, "the shelf id is: " + shelfId, Toast.LENGTH_LONG).show();
 
         save = (Button) findViewById(R.id.saveFile);
         load = (Button) findViewById(R.id.loadFile);
@@ -104,6 +106,8 @@ public class Scan_Bag extends AppCompatActivity {
     }
 
     TextWatcher watchmen = new TextWatcher() {
+        //Variable that helps keep track of when last input was received
+        long lastInput = 0;
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -111,41 +115,50 @@ public class Scan_Bag extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (timer != null) {
-                timer.cancel();
-            }
+//            if (timer != null) {
+//                timer.cancel();
+//            }
         }
 
         @Override
-        public void afterTextChanged(Editable s) {
-            //while loop, while not equal to shelfpattern
-            if (s.length() > 0) {
-                timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
+        public void afterTextChanged(final Editable s) {
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    if (System.currentTimeMillis() - lastInput >= 10) {
+                        if (s.length() > 0) {
+                            final String textToAdd = txtInput.getText().toString();
+                            boolean isBag = checkBag(textToAdd);
+                            //if its a bag, add it to list
+                            if (isBag) {
+                                final String codeToAdd = textToAdd.replaceAll("/C", "");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        addToListy(codeToAdd);
+                                    }
+                                });
+                            }//end of ifbag
 
-                        final String textToAdd = txtInput.getText().toString();
-                        boolean isBag = checkBag(textToAdd);
-                        //if its a bag, add it to list
-                        if (isBag) {
-                            final String codeToAdd = textToAdd.replaceAll("/C", "");
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    addToListy(codeToAdd);
+                            //if not bag, check if its a shelf
+                            else if (!isBag) {
+                                if (checkShelf(textToAdd)) {
+                                    //its the shelf, save and stop
+                                    saveRack();
+                                    clearList();
+                                } else {
+                                    //its not the shelf, clear and start over
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(getApplicationContext(), "Please scan bag or shelf barcode", Toast.LENGTH_SHORT).show();
+                                            txtInput.setText("");
+                                        }
+                                    });
+                                    Log.e(TAG, "ERROR: onTextChanged error occured");
                                 }
-                            });
-                        }
-                        //if not bag, check if its a shelf
-                        else if (!isBag) {
-                            if (checkShelf(textToAdd)) {
-                                //its the shelf, save and stop
-                                saveRack();
-                                clearList();
                             }
+                            //otherwise clear the input and output error message to log.
                             else {
-                                //its not the shelf, clear and start over
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -155,23 +168,68 @@ public class Scan_Bag extends AppCompatActivity {
                                 });
                                 Log.e(TAG, "ERROR: onTextChanged error occured");
                             }
-                        }
-                        //otherwise clear the input and output error message to log.
-                        else {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(getApplicationContext(), "Please scan bag or shelf barcode", Toast.LENGTH_SHORT).show();
-                                    txtInput.setText("");
-                                }
-                            });
-                            Log.e(TAG, "ERROR: onTextChanged error occured");
-                        }
-                    }
-                }, DELAY);
-            }
+                        }//end of if length >=0 check
+                    }//end of if lastinput check
+                }//end of run
+            }, 10);//end of runnable
+            lastInput = System.currentTimeMillis();
+
+
+            ///////////////////////////////////////////////////////////////////////////////////////////code commented
+            //check if the timer has hit 0, meaning input has ended
+//            if (s.length() > 0) {
+//                timer = new Timer();
+//                timer.schedule(new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        boolean finished = false;
+//
+//                        final String textToAdd = txtInput.getText().toString();
+//                        boolean isBag = checkBag(textToAdd);
+//                        //if its a bag, add it to list
+//                        if (isBag) {
+//                            final String codeToAdd = textToAdd.replaceAll("/C", "");
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    addToListy(codeToAdd);
+//                                }
+//                            });
+//                        }
+//                        //if not bag, check if its a shelf
+////                        else if (!isBag) {
+////                            if (checkShelf(textToAdd)) {
+////                                //its the shelf, save and stop
+////                                saveRack();
+////                                clearList();
+////                            }
+////                            else {
+////                                //its not the shelf, clear and start over
+////                                runOnUiThread(new Runnable() {
+////                                    @Override
+////                                    public void run() {
+////                                        Toast.makeText(getApplicationContext(), "Please scan bag or shelf barcode", Toast.LENGTH_SHORT).show();
+////                                        txtInput.setText("");
+////                                    }
+////                                });
+////                                Log.e(TAG, "ERROR: onTextChanged error occured");
+////                            }
+////                        }
+//                        //otherwise clear the input and output error message to log.
+//                        else {
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    Toast.makeText(getApplicationContext(), "Please scan bag or shelf barcode", Toast.LENGTH_SHORT).show();
+//                                    txtInput.setText("");
+//                                }
+//                            });
+//                            Log.e(TAG, "ERROR: onTextChanged error occured");
+//                        }
+//                    }
+//                }, DELAY);
+//            }
         }
-        //after while loop save
     };
 
     /**
@@ -212,7 +270,7 @@ public class Scan_Bag extends AppCompatActivity {
 
     boolean checkShelf(String text) {
         Matcher shelfMatch = shelfPattern.matcher(text);
-        if (shelfMatch.matches() && text == shelfId) {
+        if (shelfMatch.matches() && text == shelfId.toString()) {
             return true;
         } else {
             return false;
@@ -223,9 +281,9 @@ public class Scan_Bag extends AppCompatActivity {
     /**
      * This method will add the Load functionality to the Save button
      */
-    public void saveRack () {
+    public void saveRack() {
         File newFile = new File(getFilesDir() + "savedFile.txt");
-        String [] saveText = listOfBags.toArray(new String[listOfBags.size()]);
+        String[] saveText = listOfBags.toArray(new String[listOfBags.size()]);
 
         txtInput.setText("");
 
@@ -242,9 +300,9 @@ public class Scan_Bag extends AppCompatActivity {
      * @param v The View object that is associate it with the load
      *          button on the screen
      */
-    public void buttonLoad (View v) {
-        File newFile =  new File(getFilesDir() + "savedFile.txt");
-        String [] loadText = Load(newFile);
+    public void buttonLoad(View v) {
+        File newFile = new File(getFilesDir() + "savedFile.txt");
+        String[] loadText = Load(newFile);
         String finalString = "";
 
         for (int i = 0; i < loadText.length; i++) {
