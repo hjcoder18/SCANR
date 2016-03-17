@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//comment WILL ARE YOU GETTING THIS!?
 public class Scan_Shelf extends AppCompatActivity {
 
     private static final String TAG = "ScanShelfActivity";
