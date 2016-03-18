@@ -33,7 +33,6 @@ import java.util.regex.Pattern;
 
 /**
  * Activity for loading the Scan_Bag layout
- * <p/>
  * This activity is responsible for keeping track the number
  * of bags being scanned and saved into a list.
  *

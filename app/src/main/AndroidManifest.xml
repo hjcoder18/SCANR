@@ -30,12 +30,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Home" />
         </activity>
-        <activity android:name=".Scan_Bag"
-                  android:parentActivityName=".Scan_Shelf">
+        <activity
+            android:name=".Scan_Bag"
+            android:parentActivityName=".Scan_Shelf">
             <meta-data
                 android:name=".android.support.PARENT_ACTIVITY"
                 android:value=".Scan_Shelf" />
         </activity>
+        <activity android:name=".Loading"></activity>
     </application>
 
 </manifest>
