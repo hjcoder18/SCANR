@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -219,6 +221,7 @@ public class Scan_Bag extends AppCompatActivity {
 
 
     public void convertToJson(Shelf rack) {
+        ObjectMapper map = new ObjectMapper();
         JSONObject jsonRack = new JSONObject();
     }
 
