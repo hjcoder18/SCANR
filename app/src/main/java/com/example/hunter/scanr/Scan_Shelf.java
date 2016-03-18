@@ -32,56 +32,7 @@ public class Scan_Shelf extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanning_shelf);
         txtInput = (EditText) findViewById(R.id.input);
-        //txtInput.addTextChangedListener(watchmen);
     }
-
-//    public boolean onOptionsItemSelected(MenuItem item){
-//        int id = item.getItemId();
-//
-//        if (id == R.id.) {
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//        Intent myIntent = new Intent(getApplicationContext(), Scan_Shelf.class);
-//        startActivityForResult(myIntent, 0);
-//        return true;
-//    }
-
-//    TextWatcher watchmen = new TextWatcher() {
-//
-//        @Override
-//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//        }
-//        @Override
-//        public void onTextChanged(CharSequence s, int start, int before, int count) {
-//            if (s.length() > 0 ) {
-//                //TextView output = (TextView) findViewById(R.id.result);
-//                //output.setText(s + "\n");
-//                String textToAdd = txtInput.getText().toString();
-//                //buffTheMagicDragon.append(textToAdd);
-//                boolean ready = (textToAdd);
-//                if(ready) {
-//                    redirect(textToAdd);
-//                }
-//                else if (!ready){
-//                    Toast.makeText(Scan_Shelf.this, "This isn't a shelf barcode...", Toast.LENGTH_SHORT).show();
-//                }
-//                else {check
-//                    System.out.println("ERROR: WE HIT THIS THING");
-//                }
-//                //if succeeded in finding a shelf, pass id to scan_bag and begin.
-//                //else do nothing.
-//            }
-//        }
-//        @Override
-//        public void afterTextChanged(Editable s) {
-//            String scanData = s.toString();
-//            if (check(scanData)) {
-//                EditText Texting = (EditText)findViewById(R.id.input);
-//                Texting.setText("");
-//            }
-//        }
-//    };
 
     /**
      * submit function, checks to ensure that correct barcode was scanned
@@ -105,7 +56,6 @@ public class Scan_Shelf extends AppCompatActivity {
             }
         }
     }
-
 
     boolean check(String text) {
         Matcher shelfMatcher = shelfPattern.matcher(text);

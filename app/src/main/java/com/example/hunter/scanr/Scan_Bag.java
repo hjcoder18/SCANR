@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,9 +27,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.LogRecord;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,14 +53,12 @@ public class Scan_Bag extends AppCompatActivity {
 
     //VARIABLES
     private List<String> listOfBags = new ArrayList<String>();
+    Shelf rack = new Shelf();
     private ArrayAdapter<String> adapt;
     private EditText txtInput;
     private ListView viewText;
-    private Button save, load;
+    private Button load;
     private String shelfId;
-
-    //timer and delay for textwatcher purposes
-    private Timer timer = new Timer();
     private final long DELAY = 10; // 10 nano second delay
 
     @Override
@@ -82,6 +79,7 @@ public class Scan_Bag extends AppCompatActivity {
             boolean hasString = extrasBundle.containsKey("shelfID");
             if (hasString) {
                 shelfId = extrasBundle.getString("shelfID");
+                rack.setRoomCode(shelfId);
             } else {
                 Log.e(TAG, "Error: Shelf ID was not passed to scan_bag activity");
             }
@@ -93,13 +91,12 @@ public class Scan_Bag extends AppCompatActivity {
         setContentView(R.layout.scanning_bag);
         Toast.makeText(Scan_Bag.this, "the shelf id is: " + shelfId, Toast.LENGTH_LONG).show();
 
-        save = (Button) findViewById(R.id.saveFile);
         load = (Button) findViewById(R.id.loadFile);
 
         ListView list = (ListView) findViewById(R.id.listOfBags);
         String[] items = {};
         listOfBags = new ArrayList<>(Arrays.asList(items));
-        adapt = new ArrayAdapter<String>(this, R.layout.list_items, R.id.txtItem, listOfBags);
+        adapt = new ArrayAdapter<String>(this, R.layout.list_items, R.id.txtItem, rack.getContainers());
         list.setAdapter(adapt);
         txtInput = (EditText) findViewById(R.id.input);
         txtInput.addTextChangedListener(watchmen);
@@ -110,21 +107,16 @@ public class Scan_Bag extends AppCompatActivity {
         long lastInput = 0;
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-//            if (timer != null) {
-//                timer.cancel();
-//            }
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
         @Override
         public void afterTextChanged(final Editable s) {
             new Handler().postDelayed(new Runnable() {
                 public void run() {
-                    if (System.currentTimeMillis() - lastInput >= 10) {
+                    if (System.currentTimeMillis() - lastInput >= DELAY) {
                         if (s.length() > 0) {
                             final String textToAdd = txtInput.getText().toString();
                             boolean isBag = checkBag(textToAdd);
@@ -143,14 +135,15 @@ public class Scan_Bag extends AppCompatActivity {
                             else if (!isBag) {
                                 if (checkShelf(textToAdd)) {
                                     //its the shelf, save and stop
-                                    saveRack();
-                                    clearList();
+                                    //saveRack();
+                                    //clearList();
+                                    convertToJson(rack);
                                 } else {
                                     //its not the shelf, clear and start over
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(getApplicationContext(), "Please scan bag or shelf barcode", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "ERROR: Rescan Initial Shelf When finished.", Toast.LENGTH_SHORT).show();
                                             txtInput.setText("");
                                         }
                                     });
@@ -171,64 +164,9 @@ public class Scan_Bag extends AppCompatActivity {
                         }//end of if length >=0 check
                     }//end of if lastinput check
                 }//end of run
-            }, 10);//end of runnable
+            }, DELAY);//end of runnable
             lastInput = System.currentTimeMillis();
 
-
-            ///////////////////////////////////////////////////////////////////////////////////////////code commented
-            //check if the timer has hit 0, meaning input has ended
-//            if (s.length() > 0) {
-//                timer = new Timer();
-//                timer.schedule(new TimerTask() {
-//                    @Override
-//                    public void run() {
-//                        boolean finished = false;
-//
-//                        final String textToAdd = txtInput.getText().toString();
-//                        boolean isBag = checkBag(textToAdd);
-//                        //if its a bag, add it to list
-//                        if (isBag) {
-//                            final String codeToAdd = textToAdd.replaceAll("/C", "");
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    addToListy(codeToAdd);
-//                                }
-//                            });
-//                        }
-//                        //if not bag, check if its a shelf
-////                        else if (!isBag) {
-////                            if (checkShelf(textToAdd)) {
-////                                //its the shelf, save and stop
-////                                saveRack();
-////                                clearList();
-////                            }
-////                            else {
-////                                //its not the shelf, clear and start over
-////                                runOnUiThread(new Runnable() {
-////                                    @Override
-////                                    public void run() {
-////                                        Toast.makeText(getApplicationContext(), "Please scan bag or shelf barcode", Toast.LENGTH_SHORT).show();
-////                                        txtInput.setText("");
-////                                    }
-////                                });
-////                                Log.e(TAG, "ERROR: onTextChanged error occured");
-////                            }
-////                        }
-//                        //otherwise clear the input and output error message to log.
-//                        else {
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    Toast.makeText(getApplicationContext(), "Please scan bag or shelf barcode", Toast.LENGTH_SHORT).show();
-//                                    txtInput.setText("");
-//                                }
-//                            });
-//                            Log.e(TAG, "ERROR: onTextChanged error occured");
-//                        }
-//                    }
-//                }, DELAY);
-//            }
         }
     };
 
@@ -239,6 +177,9 @@ public class Scan_Bag extends AppCompatActivity {
      *             from the barcode
      */
     void addToListy(String text) {
+        //first add bag to actual list of object
+        rack.add(text);
+        //this next list is just for display
         listOfBags.add(text);
         adapt.notifyDataSetChanged();
         txtInput.setText("");
@@ -270,7 +211,7 @@ public class Scan_Bag extends AppCompatActivity {
 
     boolean checkShelf(String text) {
         Matcher shelfMatch = shelfPattern.matcher(text);
-        if (shelfMatch.matches() && text == shelfId.toString()) {
+        if (text.equals(shelfId)) {
             return true;
         } else {
             return false;
@@ -278,14 +219,21 @@ public class Scan_Bag extends AppCompatActivity {
     }
 
 
+    public void convertToJson(Shelf rack) {
+        JSONObject jsonRack =
+    }
+
+
+
     /**
      * This method will add the Load functionality to the Save button
      */
     public void saveRack() {
-        File newFile = new File(getFilesDir() + "savedFile.txt");
+        File newFile = new File(getCacheDir() + "savedFile.json");
+        newFile.deleteOnExit();
         String[] saveText = listOfBags.toArray(new String[listOfBags.size()]);
 
-        txtInput.setText("");
+        clearList();
 
         Save(newFile, saveText);
 

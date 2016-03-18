@@ -1,9 +1,5 @@
 package com.example.hunter.scanr;
 
-import android.util.Log;
-import android.widget.ProgressBar;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,55 +13,46 @@ import java.util.List;
 public class Shelf {
     private static final String TAG = "EntityListActivity";
 
-    private List<Bag> bags = new ArrayList<Bag>();
-    private String rackId;   // String because we can use the barcode
-    private String room;      // What room the shelf is in
-    private String range;     // The range of what student's is on the shelf
+    public String RoomCode;
+    public List<String> Containers;
+
+    public List<String> getContainers() {
+        return Containers;
+    }
+
+    public void setContainers(List<String> containers) {
+        Containers = containers;
+    }
+
+    public String getRoomCode() {
+        return RoomCode;
+    }
+
+    public void setRoomCode(String roomCode) {
+        RoomCode = roomCode;
+    }
+
+    /**
+     * DefaultConstructor
+     */
+    public Shelf() {}
 
     /**
      * Non-Default Constructor - sets the rack id
      *
-     * @param id - id of the rack, which is the car code for the rack
+     * @param code - id of the rack, which is the car code for the rack
      */
-    public Shelf(String id) {         // Non-Default Contructor
-        rackId = id;
+    public Shelf(String code) {         // Non-Default Contructor
+        RoomCode = code;
     }
 
     /**
-     * The mutator for setting the rack id
+     * Adds a scanned container, from the rack, to a list.
      *
-     * @param id - The id of the rack.
+     * @param bagCode - passes in the bag that needs to be added to the list
      */
-    public void setShelfId (String id) { rackId = id;    }
-
-    /**
-     * The mutator for setting the room the rack is in.
-     *
-     * @param theRoom - The room the rack is in.
-     */
-    public void setRoom (String theRoom) { room = theRoom ; }
-
-    /**
-     * The accessor for retrieving the rack ID
-     *
-     * @return rackId - returns a rack ID
-     */
-    public String getShelfId() { return rackId; }
-
-    /**
-     * The accessor for retrieving the room the rack is in
-     *
-     * @return room - returns a room
-     */
-    public String getRoom   () { return room;    }
-
-    /**
-     * Adds a scanned back, from the rack, to a list.
-     *
-     * @param bag - passes in the bag that needs to be added to the list
-     */
-    public void addBag(Bag bag) {
-        bags.add(bag);
+    public void add(String bagCode) {
+        Containers.add(bagCode);
     }
 
     /**
@@ -73,30 +60,8 @@ public class Shelf {
      *
      * @return numOfBags - returns number of bags
      */
-    public double numberOfBags() {
-        int numOfBags = bags.size();
-        return numOfBags;
+    public double size() {
+        int amount = Containers.size();
+        return amount;
     }
 }
-
-//input = result of scan;
-//
-//Shelf shelf = new shelf();
-//
-//shelf.setId(input);
-
-//
-//while (!isfinished) {
-//        anotherinput = result of another scan;
-//        if (anotherinput != input) {
-//        Bag temp = new Bag();
-//        temp.setid(anotherinput);
-//        ...
-//        do all the other stuff to create a bag...
-//        ...
-//        shelf.addbag(temp);
-//        }
-//        else {
-//        isfinished = true;
-//        }
-//        }
