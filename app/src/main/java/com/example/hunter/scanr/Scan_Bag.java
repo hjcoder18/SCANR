@@ -220,7 +220,7 @@ public class Scan_Bag extends AppCompatActivity {
 
 
     public void convertToJson(Shelf rack) {
-        JSONObject jsonRack =
+        JSONObject jsonRack = new JSONObject();
     }
 
 
