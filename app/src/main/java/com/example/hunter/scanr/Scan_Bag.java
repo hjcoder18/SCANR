@@ -14,11 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -97,7 +92,7 @@ public class Scan_Bag extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.listOfBags);
         String[] items = {};
         listOfBags = new ArrayList<>(Arrays.asList(items));
-        adapt = new ArrayAdapter<String>(this, R.layout.list_items, R.id.txtItem, rack.getContainers());
+        adapt = new ArrayAdapter<String>(this, R.layout.list_items, R.id.txtItem, listOfBags);
         list.setAdapter(adapt);
         txtInput = (EditText) findViewById(R.id.input);
         txtInput.addTextChangedListener(watchmen);
@@ -136,9 +131,9 @@ public class Scan_Bag extends AppCompatActivity {
                             else if (!isBag) {
                                 if (checkShelf(textToAdd)) {
                                     //its the shelf, save and stop
-                                    //saveRack();
-                                    //clearList();
-                                    convertToJson(rack);
+                                    saveRack();
+                                    clearList();
+
                                 } else {
                                     //its not the shelf, clear and start over
                                     runOnUiThread(new Runnable() {
@@ -179,7 +174,7 @@ public class Scan_Bag extends AppCompatActivity {
      */
     void addToListy(String text) {
         //first add bag to actual list of object
-        rack.add(text);
+        //rack.add(text);
         //this next list is just for display
         listOfBags.add(text);
         adapt.notifyDataSetChanged();
@@ -218,14 +213,6 @@ public class Scan_Bag extends AppCompatActivity {
             return false;
         }
     }
-
-
-    public void convertToJson(Shelf rack) {
-        ObjectMapper map = new ObjectMapper();
-        JSONObject jsonRack = new JSONObject();
-    }
-
-
 
     /**
      * This method will add the Load functionality to the Save button
