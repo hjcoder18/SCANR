@@ -142,7 +142,7 @@ public class Scan_Bag extends AppCompatActivity {
                                     //its the shelf, save and stop
                                     Gson gson = new Gson();
                                     String json = gson.toJson(rack);
-                                    saveRack(json);
+                                    send(json);
                                     clearList();
                                 } else {
                                     //its not the shelf, clear and start over
@@ -285,14 +285,22 @@ public class Scan_Bag extends AppCompatActivity {
         }
     }
 
+    public void sendButton(View v) {
+        Gson gson = new Gson();
+        String jSon = gson.toJson(rack);
+        send(jSon);
+    }
+
     public void send(String json) {
         Intent file = new Intent(Intent.ACTION_SEND);
         file.setData((Uri.parse("mailto:")));
-        String [] to = {"wvmon360@gmail.com"};
+        String [] to = {"kmmacgill@gmail.com"};
         file.putExtra(Intent.EXTRA_EMAIL, to);
         file.putExtra(Intent.EXTRA_SUBJECT, "This was sent from scanner gun");
         file.putExtra(Intent.EXTRA_TEXT, json);
         file.setType("message/rfc822");
+        Intent chooser = Intent.createChooser(file, "Send email");
+        startActivity(chooser);
     }
 
     /**
