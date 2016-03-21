@@ -283,6 +283,11 @@ public class Scan_Bag extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method send the json string to the corresponding emails.
+     *
+     * @param json The json string that holds the list of bag
+     */
     public void send(String json) {
         Intent file = new Intent(Intent.ACTION_SEND);
         file.setData((Uri.parse("mailto:")));
