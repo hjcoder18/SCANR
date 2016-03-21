@@ -1,5 +1,6 @@
 package com.example.hunter.scanr;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,8 +45,6 @@ public class Scan_Bag extends AppCompatActivity {
 
     private static final String TAG = "ScanBagActivity";
 
-    //public String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/aaTutorial";
-
     //PATTERNS
     Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
     Pattern bagPattern = Pattern.compile("\\/C\\/C\\d+\\/C\\/C");
@@ -62,10 +64,6 @@ public class Scan_Bag extends AppCompatActivity {
         //stop keyboard popup
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        //create the save file
-        File dir = new File(getFilesDir(), "txtFile.txt");
-        dir.mkdirs();
-
         // Get the id from the scan-shelf activity
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
@@ -76,6 +74,7 @@ public class Scan_Bag extends AppCompatActivity {
             if (hasString) {
                 shelfId = extrasBundle.getString("shelfID");
                 rack.setRoomCode(shelfId);
+                rack.setContainers(listOfBags);
             } else {
                 Log.e(TAG, "Error: Shelf ID was not passed to scan_bag activity");
             }
@@ -85,7 +84,7 @@ public class Scan_Bag extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanning_bag);
-        Toast.makeText(Scan_Bag.this, "the shelf id is: " + shelfId, Toast.LENGTH_LONG).show();
+        Toast.makeText(Scan_Bag.this, "the rack object: " + rack, Toast.LENGTH_SHORT).show();
 
         load = (Button) findViewById(R.id.loadFile);
 
@@ -103,7 +102,8 @@ public class Scan_Bag extends AppCompatActivity {
         long lastInput = 0;
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -115,25 +115,24 @@ public class Scan_Bag extends AppCompatActivity {
                     if (System.currentTimeMillis() - lastInput >= DELAY) {
                         if (s.length() > 0) {
                             final String textToAdd = txtInput.getText().toString();
-                            boolean isBag = checkBag(textToAdd);
+
                             //if its a bag, add it to list
-                            if (isBag) {
+                            if (checkBag(textToAdd)) {
                                 final String codeToAdd = textToAdd.replaceAll("/C", "");
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        addToListy(codeToAdd);
+                                        addToList(codeToAdd);
                                     }
                                 });
                             }//end of ifbag
 
                             //if not bag, check if its a shelf
-                            else if (!isBag) {
+                            else {
                                 if (checkShelf(textToAdd)) {
                                     //its the shelf, save and stop
                                     saveRack();
                                     clearList();
-
                                 } else {
                                     //its not the shelf, clear and start over
                                     runOnUiThread(new Runnable() {
@@ -147,22 +146,21 @@ public class Scan_Bag extends AppCompatActivity {
                                 }
                             }
                             //otherwise clear the input and output error message to log.
-                            else {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getApplicationContext(), "Please scan bag or shelf barcode", Toast.LENGTH_SHORT).show();
-                                        txtInput.setText("");
-                                    }
-                                });
-                                Log.e(TAG, "ERROR: onTextChanged error occured");
-                            }
+//                            else {
+//                                runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        Toast.makeText(getApplicationContext(), "Please scan bag or shelf barcode", Toast.LENGTH_SHORT).show();
+//                                        txtInput.setText("");
+//                                    }
+//                                });
+//                                Log.e(TAG, "ERROR: onTextChanged error occured");
+//                            }
                         }//end of if length >=0 check
                     }//end of if lastinput check
                 }//end of run
             }, DELAY);//end of runnable
             lastInput = System.currentTimeMillis();
-
         }
     };
 
@@ -172,13 +170,15 @@ public class Scan_Bag extends AppCompatActivity {
      * @param text The string to associate the input string received
      *             from the barcode
      */
-    void addToListy(String text) {
+    void addToList(String text) {
         //first add bag to actual list of object
-        //rack.add(text);
+        rack.add(text);
         //this next list is just for display
         listOfBags.add(text);
         adapt.notifyDataSetChanged();
-        txtInput.setText("");
+        Gson gson = new Gson();
+        String json = gson.toJson(rack);
+        showJson(json);
     }
 
     /**
@@ -198,35 +198,33 @@ public class Scan_Bag extends AppCompatActivity {
      */
     boolean checkBag(String text) {
         Matcher bagMatch = bagPattern.matcher(text);
-        if (bagMatch.matches()) {
-            return true;
-        } else {
-            return false;
-        }
+        return bagMatch.matches();
     }
 
     boolean checkShelf(String text) {
         Matcher shelfMatch = shelfPattern.matcher(text);
-        if (text.equals(shelfId)) {
-            return true;
-        } else {
-            return false;
-        }
+        return text.equals(shelfId);
     }
+
+
+    //SHOW JSON TEST METHOD FOR TESTING PURPOSES ONLY
+    void showJson(String jsonString) {
+        Toast.makeText(getApplicationContext(), "The Rack Json Object: " + jsonString, Toast.LENGTH_LONG).show();
+    }
+
 
     /**
      * This method will add the Load functionality to the Save button
      */
     public void saveRack() {
-        File newFile = new File(getCacheDir() + "savedFile.json");
-        newFile.deleteOnExit();
+        File newFile = new File(getCacheDir() + "savedFile.txt");
         String[] saveText = listOfBags.toArray(new String[listOfBags.size()]);
 
         clearList();
 
         Save(newFile, saveText);
 
-        Toast.makeText(getApplicationContext(), "List was Saved! clearing list", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "List was Saved! clearing list", Toast.LENGTH_LONG).show();
 
         clearList();
     }
@@ -238,12 +236,12 @@ public class Scan_Bag extends AppCompatActivity {
      *          button on the screen
      */
     public void buttonLoad(View v) {
-        File newFile = new File(getFilesDir() + "savedFile.txt");
+        File newFile = new File(getCacheDir() + "savedFile.txt");
         String[] loadText = Load(newFile);
         String finalString = "";
 
         for (int i = 0; i < loadText.length; i++) {
-            addToListy(loadText[i]);
+            addToList(loadText[i]);
         }
     }
 

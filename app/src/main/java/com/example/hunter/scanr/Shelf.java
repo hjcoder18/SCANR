@@ -1,5 +1,6 @@
 package com.example.hunter.scanr;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
