@@ -58,9 +58,8 @@ public class Scan_Bag extends AppCompatActivity {
     private EditText txtInput;
     private ListView viewText;
     private Button load;
-    private Button send;
     private String shelfId;
-    private final long DELAY = 10; // 10 nano second delay
+    private final long DELAY = 3000; // 10 nano second delay
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +88,6 @@ public class Scan_Bag extends AppCompatActivity {
         setContentView(R.layout.scanning_bag);
 
         load = (Button) findViewById(R.id.loadFile);
-        send = (Button) findViewById(R.id.sendFile);
 
         ListView list = (ListView) findViewById(R.id.listOfBags);
         String[] items = {};
@@ -285,21 +283,15 @@ public class Scan_Bag extends AppCompatActivity {
         }
     }
 
-    public void sendButton(View v) {
-        Gson gson = new Gson();
-        String jSon = gson.toJson(rack);
-        send(jSon);
-    }
-
     public void send(String json) {
         Intent file = new Intent(Intent.ACTION_SEND);
         file.setData((Uri.parse("mailto:")));
-        String [] to = {"kmmacgill@gmail.com"};
+        String [] to = {"wvmon360@gmail.com","hjmarshall18@gmail.com", "kmmacgill@gmail.com"};
         file.putExtra(Intent.EXTRA_EMAIL, to);
         file.putExtra(Intent.EXTRA_SUBJECT, "This was sent from scanner gun");
         file.putExtra(Intent.EXTRA_TEXT, json);
         file.setType("message/rfc822");
-        Intent chooser = Intent.createChooser(file, "Send email");
+        Intent chooser = Intent.createChooser(file, "Send Email");
         startActivity(chooser);
     }
 
