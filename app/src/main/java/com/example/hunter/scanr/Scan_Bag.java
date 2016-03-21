@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -136,7 +137,9 @@ public class Scan_Bag extends AppCompatActivity {
                             else {
                                 if (checkShelf(textToAdd)) {
                                     //its the shelf, save and stop
-                                    saveRack();
+                                    Gson gson = new Gson();
+                                    String json = gson.toJson(rack);
+                                    saveRack(json);
                                     clearList();
                                 } else {
                                     //its not the shelf, clear and start over
@@ -216,17 +219,19 @@ public class Scan_Bag extends AppCompatActivity {
     /**
      * This method will add the Load functionality to the Save button
      */
-    public void saveRack() {
-        File newFile = new File(getCacheDir() + "savedFile.txt");
-        String[] saveText = listOfBags.toArray(new String[listOfBags.size()]);
-
+    public void saveRack(String json) {
+        //File newFile = new File(getCacheDir() + "savedFile.json");
+        //String[] saveText = listOfBags.toArray(new String[listOfBags.size()]);
+        try {
+            FileWriter writer = new FileWriter("jsonFile.json");
+            writer.write(json);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         clearList();
-
-        Save(newFile, saveText);
-
+        //Save(newFile, saveText);
         Toast.makeText(getApplicationContext(), "List was Saved! clearing list", Toast.LENGTH_LONG).show();
-
-        clearList();
     }
 
     /**
