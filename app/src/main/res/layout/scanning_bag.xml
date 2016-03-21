@@ -19,7 +19,8 @@
         android:textSize="17.5dp"
         android:gravity="center"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_toRightOf="@+id/indicator_bags"
+        android:layout_toEndOf="@+id/indicator_bags" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:id="@+id/input"
+        android:layout_below="@+id/instructions_bag"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
@@ -48,8 +50,8 @@
         android:id="@+id/loadFile"
         android:onClick="buttonLoad"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ListView
         android:layout_width="wrap_content"

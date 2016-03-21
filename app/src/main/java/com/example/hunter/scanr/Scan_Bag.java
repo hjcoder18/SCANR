@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
  * This activity is responsible for keeping track the number
  * of bags being scanned and saved into a list.
  *
- * @author William Montesdeoca, Kory McGill, Hunter Marshall
+ * @author William Montesdeoca, Korey McGill, Hunter Marshall
  * @version 3/16/2016
  * @since 1.0
  */
@@ -84,7 +84,6 @@ public class Scan_Bag extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanning_bag);
-        Toast.makeText(Scan_Bag.this, "the rack object: " + rack, Toast.LENGTH_SHORT).show();
 
         load = (Button) findViewById(R.id.loadFile);
 
@@ -106,7 +105,8 @@ public class Scan_Bag extends AppCompatActivity {
         }
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
 
         @Override
         public void afterTextChanged(final Editable s) {
@@ -123,6 +123,11 @@ public class Scan_Bag extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         addToList(codeToAdd);
+
+                                        //this set's text to null so further iterations won't occur.
+                                        //technically this will be called 13(or however long the input)
+                                        //times, need to find better method or prevent it (which this does)
+                                        txtInput.setText("");
                                     }
                                 });
                             }//end of ifbag
@@ -145,17 +150,6 @@ public class Scan_Bag extends AppCompatActivity {
                                     Log.e(TAG, "ERROR: onTextChanged error occured");
                                 }
                             }
-                            //otherwise clear the input and output error message to log.
-//                            else {
-//                                runOnUiThread(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        Toast.makeText(getApplicationContext(), "Please scan bag or shelf barcode", Toast.LENGTH_SHORT).show();
-//                                        txtInput.setText("");
-//                                    }
-//                                });
-//                                Log.e(TAG, "ERROR: onTextChanged error occured");
-//                            }
                         }//end of if length >=0 check
                     }//end of if lastinput check
                 }//end of run
@@ -206,11 +200,17 @@ public class Scan_Bag extends AppCompatActivity {
         return text.equals(shelfId);
     }
 
-
+    ///////////////////////////////////////////
+    ///////////////////////////////////////////
+    ///////////////////////////////////////////
     //SHOW JSON TEST METHOD FOR TESTING PURPOSES ONLY
+    //delete when finished.
     void showJson(String jsonString) {
         Toast.makeText(getApplicationContext(), "The Rack Json Object: " + jsonString, Toast.LENGTH_LONG).show();
     }
+    //////////////////////////////////////////
+    //////////////////////////////////////////
+    //////////////////////////////////////////
 
 
     /**
