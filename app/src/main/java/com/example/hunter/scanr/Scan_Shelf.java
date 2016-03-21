@@ -52,7 +52,7 @@ public class Scan_Shelf extends AppCompatActivity {
                 txtInput.setText("");
             }
             else {
-                Log.e(TAG, "ERROR: some strangness happened");
+                Log.e(TAG, "ERROR: some strangeness happened");
             }
         }
     }
