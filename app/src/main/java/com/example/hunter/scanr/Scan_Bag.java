@@ -2,6 +2,7 @@ package com.example.hunter.scanr;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,6 +58,7 @@ public class Scan_Bag extends AppCompatActivity {
     private EditText txtInput;
     private ListView viewText;
     private Button load;
+    private Button send;
     private String shelfId;
     private final long DELAY = 10; // 10 nano second delay
 
@@ -87,6 +89,7 @@ public class Scan_Bag extends AppCompatActivity {
         setContentView(R.layout.scanning_bag);
 
         load = (Button) findViewById(R.id.loadFile);
+        send = (Button) findViewById(R.id.sendFile);
 
         ListView list = (ListView) findViewById(R.id.listOfBags);
         String[] items = {};
@@ -280,6 +283,16 @@ public class Scan_Bag extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void send(String json) {
+        Intent file = new Intent(Intent.ACTION_SEND);
+        file.setData((Uri.parse("mailto:")));
+        String [] to = {"wvmon360@gmail.com"};
+        file.putExtra(Intent.EXTRA_EMAIL, to);
+        file.putExtra(Intent.EXTRA_SUBJECT, "This was sent from scanner gun");
+        file.putExtra(Intent.EXTRA_TEXT, json);
+        file.setType("message/rfc822");
     }
 
     /**

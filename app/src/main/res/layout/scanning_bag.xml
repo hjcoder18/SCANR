@@ -63,9 +63,9 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="load"
-        android:id="@+id/button"
-        android:onClick="buttonLoad"
+        android:text="send"
+        android:id="@+id/sendFile"
+        android:onClick="send"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
