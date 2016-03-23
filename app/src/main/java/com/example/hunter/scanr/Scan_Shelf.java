@@ -18,7 +18,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//comment WILL ARE YOU GETTING THIS!?
+/**
+ * SCAN_SHELF CLASS EXTENDS APPCOMPATEACTIVITY
+ *
+ * This class will allow us to scan the racks, while checking the patterns of the bar code to
+ * determine if the item being scanned is a rack. If the item is a rack it will then move to the
+ * next activity, otherwise it will clear the input and allow the user to try again.
+ */
 public class Scan_Shelf extends AppCompatActivity {
 
     private static final String TAG = "ScanShelfActivity";
@@ -35,7 +41,9 @@ public class Scan_Shelf extends AppCompatActivity {
     }
 
     /**
-     * submit function, checks to ensure that correct barcode was scanned
+     * SUBMIT METHOD
+     *
+     * Checks to ensure that correct barcode was scanned
      * and passes user to next activity if they have. otherwise clears the input
      * and allows user to try again.
      *
@@ -57,6 +65,13 @@ public class Scan_Shelf extends AppCompatActivity {
         }
     }
 
+    /**
+     * CHECK METHOD
+     * Will check to see if the item scanned is a rack. Will return true if it is a rack, and false
+     * if it is not a rack.
+     * @param text - item to be checked
+     * @return true or false - true if the item is a rack, false otherwise
+     */
     boolean check(String text) {
         Matcher shelfMatcher = shelfPattern.matcher(text);
         if (shelfMatcher.matches()) {
@@ -67,11 +82,15 @@ public class Scan_Shelf extends AppCompatActivity {
         }
     }
 
-    /*
-     * http://www.101apps.co.za/index.php/articles/passing-data-between-activities.html
+    /**
+     * Will move to the next activity that will allow the user to scan the bags on the rack.
+     * It will pass the rack ID to the next activity.
+     *
+     * @param textToAdd - the rack id that will be sent to the next activity
      */
     void redirect(String textToAdd) {
         Intent bag_act = new Intent(this, Scan_Bag.class);
+
         // Put string into a bundle and then pass the bundle to the new activity
         Bundle bundle = new Bundle();
         bundle.putString("shelfID", textToAdd);

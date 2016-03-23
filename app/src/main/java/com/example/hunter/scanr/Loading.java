@@ -17,7 +17,16 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * LOADING CLASS
+ * Allows the user to get content from the API and allows the user to check to see if
+ * the application is connected to the internet.
+ */
 public class Loading extends AppCompatActivity {
+    /*
+      Korey's Json file
+      php-kormac.rhcloud.com/file.json
+   */
     EditText urlText;
     TextView textView;
 
@@ -35,6 +44,14 @@ public class Loading extends AppCompatActivity {
             textView.setText("You are NOT connected!");
         }
     }
+
+    /**
+     * GET Method
+     * Allows the application to get content from the API
+     *
+     * @param line - the contents of the json file
+     * @return line - the contents of the json file
+     */
     public static String GET(String line) {
         HttpURLConnection connection = null;
         URL url = null;
@@ -72,7 +89,12 @@ public class Loading extends AppCompatActivity {
         return line;
     }
 
-
+    /**
+     * IS CONNECTED METHOD
+     * Determines if we are connected to the internet.
+     *
+     * @return true or false - if the network is connected return true, otherwise return false
+     */
     public boolean isConnected() {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -81,6 +103,10 @@ public class Loading extends AppCompatActivity {
         else
             return false;
     }
+
+    /**
+     * HTTYPASYNCTASK
+     */
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String...params) {
