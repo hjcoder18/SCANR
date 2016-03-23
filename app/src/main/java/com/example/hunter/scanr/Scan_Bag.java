@@ -284,7 +284,7 @@ public class Scan_Bag extends AppCompatActivity {
     }
 
     /**
-     * This method send the json string to the corresponding emails.
+     * This method will send the json string to the corresponding emails.
      *
      * @param json The json string that holds the list of bag
      */
