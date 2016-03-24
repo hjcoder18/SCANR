@@ -24,6 +24,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * LOADING CLASS
+ * Allows the user to get content from the API and allows the user to check to see if
+ * the application is connected to the internet.
+ */
 public class Loading extends AppCompatActivity {
 
     private static final String TAG = "LoadingActivity";

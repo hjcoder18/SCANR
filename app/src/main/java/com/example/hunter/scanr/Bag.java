@@ -21,34 +21,29 @@ import java.util.List;
  */
 public class Bag extends AppCompatActivity{
 
-    /**********************************************************************
-     * Questions to ask
-     *  - Should bag know what shelf it is on? A: needs to know the aisle
-     *  - Does name come as a single string, or does first and last name come
-     *    as separate strings?
-     **********************************************************************/
+    /*8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+      8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+      88 DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME,  88
+      88 DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME   88
+      8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+      8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.bag_content);
     }
 
-    private static final String TAG = "EntityListActivity";
+    private static final String TAG = "BagClass"; // To be used for log
 
     private String bagId; //the bag id is the main key and the primary key by which they are ordered...
     private String studentFirstName; // used by bag class
     private String studentLastName;  // used by bag class
-    private int studentID;
+    private int studentID;           // The student
     private int aisle;
     private String rackID; //
     //private int bagIndex;  // used by Shelf class
 
-    /*88888888888888888888888888888888888888888888888888888888888888888
-      NOTES FROM Hunter
-      To be used by shelf
-        - get first bag student's last name
-        - get last bag student's last name
-    8888888888888888888888888888888888888888888888888888888888888888888*/
 
     /**
      * Default Constructor
