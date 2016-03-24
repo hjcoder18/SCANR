@@ -37,7 +37,14 @@
                 android:name=".android.support.PARENT_ACTIVITY"
                 android:value=".Scan_Shelf" />
         </activity>
-        <activity android:name=".Loading"></activity>
+        <activity
+            android:name=".Loading"
+            android:parentActivityName=".Scan_Bag">
+            <meta-data
+                android:name=".android.support.PARENT_ACTIVITY"
+                android:value=".Scan_Bag" />
+
+        </activity>
     </application>
 
 </manifest>

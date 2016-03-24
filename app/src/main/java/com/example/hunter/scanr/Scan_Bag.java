@@ -57,7 +57,7 @@ public class Scan_Bag extends AppCompatActivity {
     private EditText txtInput;
     //private ListView viewText; COMMENTED OUT: never used.
     private String shelfId;
-    private final long DELAY = 10; // 10 nano second delay
+    private final long DELAY = 12000; // 10 nano second delay
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +137,7 @@ public class Scan_Bag extends AppCompatActivity {
                                     Gson gson = new Gson();
                                     String json = gson.toJson(rack);
                                     redirect(json);
-                                    clearList();
+                                    //clearList();
                                 } else {
                                     //its not the shelf, clear and start over
                                     runOnUiThread(new Runnable() {
@@ -216,7 +216,7 @@ public class Scan_Bag extends AppCompatActivity {
      * http://www.101apps.co.za/index.php/articles/passing-data-between-activities.html
      */
     void redirect(String jsonString) {
-        Intent Loading_Act = new Intent(this, Scan_Bag.class);
+        Intent Loading_Act = new Intent(this, Loading.class);
         // Put string into a bundle and then pass the bundle to the new activity
         Bundle bundle = new Bundle();
         bundle.putString("jsonString", jsonString);
