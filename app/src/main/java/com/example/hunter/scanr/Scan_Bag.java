@@ -1,32 +1,32 @@
 package com.example.hunter.scanr;
 
-import android.content.Context;
+//import android.content.Context; never used import
 import android.content.Intent;
-import android.net.Uri;
+//import android.net.Uri; never used import
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
+//import android.view.View; never used import
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+//import android.widget.Button; never used import
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+//import java.io.BufferedReader; ==================
+//import java.io.File;
+//import java.io.FileInputStream;
+//import java.io.FileNotFoundException; never used
+//import java.io.FileOutputStream;      imports
+//import java.io.FileWriter;
+//import java.io.IOException;
+//import java.io.InputStreamReader; ===============
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +42,6 @@ import java.util.regex.Pattern;
  * @version 3/16/2016
  * @since 1.0
  */
-
 public class Scan_Bag extends AppCompatActivity {
 
     private static final String TAG = "ScanBagActivity";
@@ -56,10 +55,9 @@ public class Scan_Bag extends AppCompatActivity {
     Shelf rack = new Shelf();
     private ArrayAdapter<String> adapt;
     private EditText txtInput;
-    private ListView viewText;
-    private Button load;
+    //private ListView viewText; COMMENTED OUT: never used.
     private String shelfId;
-    private final long DELAY = 3000; // 10 nano second delay
+    private final long DELAY = 10; // 10 nano second delay
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +84,6 @@ public class Scan_Bag extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanning_bag);
-
-        load = (Button) findViewById(R.id.loadFile);
 
         ListView list = (ListView) findViewById(R.id.listOfBags);
         String[] items = {};
@@ -140,7 +136,7 @@ public class Scan_Bag extends AppCompatActivity {
                                     //its the shelf, save and stop
                                     Gson gson = new Gson();
                                     String json = gson.toJson(rack);
-                                    send(json);
+                                    redirect(json);
                                     clearList();
                                 } else {
                                     //its not the shelf, clear and start over
@@ -216,134 +212,32 @@ public class Scan_Bag extends AppCompatActivity {
     //////////////////////////////////////////
     //////////////////////////////////////////
 
-
-    /**
-     * This method will add the Load functionality to the Save button
+    /*
+     * http://www.101apps.co.za/index.php/articles/passing-data-between-activities.html
      */
-    public void saveRack(String json) {
-        //File newFile = new File(getCacheDir() + "savedFile.json");
-        //String[] saveText = listOfBags.toArray(new String[listOfBags.size()]);
-        try {
-            FileWriter writer = new FileWriter("jsonFile.json");
-            writer.write(json);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        clearList();
-        //Save(newFile, saveText);
-        Toast.makeText(getApplicationContext(), "List was Saved! clearing list", Toast.LENGTH_LONG).show();
+    void redirect(String jsonString) {
+        Intent Loading_Act = new Intent(this, Scan_Bag.class);
+        // Put string into a bundle and then pass the bundle to the new activity
+        Bundle bundle = new Bundle();
+        bundle.putString("jsonString", jsonString);
+        Loading_Act.putExtras(bundle);
+        startActivity(Loading_Act);
     }
 
-    /**
-     * This method will add the Load functionality to the Load button
-     *
-     * @param v The View object that is associate it with the load
-     *          button on the screen
-     */
-    public void buttonLoad(View v) {
-        File newFile = new File(getCacheDir() + "savedFile.txt");
-        String[] loadText = Load(newFile);
-        String finalString = "";
-
-        for (int i = 0; i < loadText.length; i++) {
-            addToList(loadText[i]);
-        }
-    }
-
-    /**
-     * This method will save the input of the user
-     *
-     * @param file The File object that input data is saved in
-     */
-    public static void Save(File file, String[] data) {
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            try {
-                for (int i = 0; i < data.length; i++) {
-                    fos.write(data[i].getBytes());
-                    if (i < data.length - 1) {
-                        fos.write("\n".getBytes());
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * This method will send the json string to the corresponding emails.
-     *
-     * @param json The json string that holds the list of bag
-     */
-    public void send(String json) {
-        Intent file = new Intent(Intent.ACTION_SEND);
-        file.setData((Uri.parse("mailto:")));
-        String [] to = {"wvmon360@gmail.com","hjmarshall18@gmail.com", "kmmacgill@gmail.com"};
-        file.putExtra(Intent.EXTRA_EMAIL, to);
-        file.putExtra(Intent.EXTRA_SUBJECT, "This was sent from scanner gun");
-        file.putExtra(Intent.EXTRA_TEXT, json);
-        file.setType("message/rfc822");
-        Intent chooser = Intent.createChooser(file, "Send Email");
-        startActivity(chooser);
-    }
-
-    /**
-     * This method will display the input of the user
-     *
-     * @param file The File object that input data is displayed
-     */
-    public static String[] Load(File file) {
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        InputStreamReader isr = new InputStreamReader(fis);
-        BufferedReader br = new BufferedReader(isr);
-        String test;
-        int num = 0;
-
-        try {
-            while ((test = br.readLine()) != null) {
-                num++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            fis.getChannel().position(0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String[] array = new String[num];
-
-        String line;
-        int count = 0;
-        try {
-            while ((line = br.readLine()) != null) {
-                array[count] = line;
-                count++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return array;
-    }
+    //code for william
+//    public void sendButton(View v) {
+//        Gson gson = new Gson();
+//        String jSon = gson.toJson(rack);
+//        send(jSon);
+//    }
+//
+//    public void send(String json) {
+//        Intent file = new Intent(Intent.ACTION_SEND);
+//        file.setData((Uri.parse("mailto:")));
+//        String [] to = {"kmmacgill@gmail.com"};
+//        file.putExtra(Intent.EXTRA_EMAIL, to);
+//        file.putExtra(Intent.EXTRA_SUBJECT, "This was sent from scanner gun");
+//        file.putExtra(Intent.EXTRA_TEXT, json);
+//        file.setType("message/rfc822");
+//    }
 }
