@@ -8,11 +8,41 @@ public class Student {
     private int studentID;
     private String studentName;
 
+    /**
+     * STUDENT CONSTRUCTOR
+     */
     public Student() {}
 
-    public int getStudentID() { return studentID; }
-    public void setStudentID(int Inumber) { Inumber = studentID; }
+    /**
+     * GET STUDENTID METHOD
+     *
+     * @return studentID - the student's ID #
+     */
+    public int getStudentID() {
+        return studentID;
+    }
 
-    public String getName() { return studentName; }
-    public void setName(String name) { name = studentName; }
+    /**
+     * SET STUDENT ID METHOD
+     * @param Inumber - the student's iNumber
+     */
+    public void setStudentID(int Inumber) {
+        Inumber = studentID;
+    }
+
+    /**
+     * GET NAME METHOD
+     * @return studentName - returns the student's name.
+     */
+    public String getName() {
+        return studentName;
+    }
+
+    /**
+     * SET NAME METHOD
+     * @param name - the name of the student.
+     */
+    public void setName(String name) {
+        name = studentName;
+    }
 }

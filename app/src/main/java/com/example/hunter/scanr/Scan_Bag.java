@@ -46,7 +46,7 @@ public class Scan_Bag extends AppCompatActivity {
 
     private static final String TAG = "ScanBagActivity";
 
-    //PATTERNS
+    //PATTERNS for the Shelf and bag barcode
     Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
     Pattern bagPattern = Pattern.compile("\\/C\\/C\\d+\\/C\\/C");
 
@@ -195,6 +195,15 @@ public class Scan_Bag extends AppCompatActivity {
         return bagMatch.matches();
     }
 
+    /**
+     * CHECK SHELF METHOD
+     * Compares the pattern scanned to determine if it is a shelf.
+     * Then it checks to see if it is the shelf that we are scanning bags on.
+     * If it is then return true, otherwise return false.
+     *
+     * @param text - the pattern to checked
+     * @return true if pattern is the shelf we are working on, otherwise returns false
+     */
     boolean checkShelf(String text) {
         Matcher shelfMatch = shelfPattern.matcher(text);
         return text.equals(shelfId);
