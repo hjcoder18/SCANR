@@ -33,19 +33,22 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:layout_below="@+id/getButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="this is where the content of the json file will go"
-        android:id="@+id/jsonContent"
+        android:layout_height="250dp"
         android:layout_below="@+id/getButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="sendGetRequest"/>
+        android:fillViewport="true"
+        android:id="@+id/scrollView">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="this is where the content of the json file will go"
+            android:id="@+id/jsonContent"
+            android:onClick="sendGetRequest"/>
+            <!--android:layout_alignBottom="@+id/scrollView"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true" />-->
     </ScrollView>
 
     <Button

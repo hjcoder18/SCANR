@@ -32,8 +32,6 @@ import java.net.URL;
 public class Loading extends AppCompatActivity {
 
     private static final String TAG = "LoadingActivity";
-
-    EditText urlText;
     TextView textView;
     Button get;
     Button post;
@@ -61,7 +59,6 @@ public class Loading extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading_page);
-        urlText = (EditText) findViewById(R.id.inputText);
         textView = (TextView) findViewById(R.id.isConnected);
         get = (Button) findViewById(R.id.getButton);
         post = (Button) findViewById(R.id.postButton);
@@ -151,7 +148,6 @@ public class Loading extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... params) {
             try {
-
                 final TextView outputView = (TextView) findViewById(R.id.jsonContent);
                 URL url = new URL("http://php-kormac.rhcloud.com/file.json");
 
