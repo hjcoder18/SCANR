@@ -175,6 +175,7 @@ public class Loading extends AppCompatActivity {
                 output.append(System.getProperty("line.separator") + "Request Parameters " + urlParameters);
                 output.append(System.getProperty("line.separator")  + "Response Code " + responseCode);
                 output.append(System.getProperty("line.separator")  + "Type " + "POST");
+                output.append(System.getProperty("line.seperator") + jsonString);
                 BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line = "";
                 StringBuilder responseOutput = new StringBuilder();
