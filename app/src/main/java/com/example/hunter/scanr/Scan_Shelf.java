@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 public class Scan_Shelf extends AppCompatActivity {
 
     private static final String TAG = "ScanShelfActivity";
+
     // Pattern for the Shelf
     Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
 
@@ -73,7 +74,10 @@ public class Scan_Shelf extends AppCompatActivity {
      * @return true or false - true if the item is a rack, false otherwise
      */
     boolean check(String text) {
+        // check the pattern to make sure it matches
         Matcher shelfMatcher = shelfPattern.matcher(text);
+
+        // if it matches return true, otherwise return false
         if (shelfMatcher.matches()) {
             return true;
         }
@@ -93,8 +97,12 @@ public class Scan_Shelf extends AppCompatActivity {
 
         // Put string into a bundle and then pass the bundle to the new activity
         Bundle bundle = new Bundle();
+
+        // Add the shelfID to the bundles so we can use it in the new activity
         bundle.putString("shelfID", textToAdd);
         bag_act.putExtras(bundle);
+
+        // go to new activity
         startActivity(bag_act);
     }
 
