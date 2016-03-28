@@ -57,7 +57,7 @@ public class Scan_Bag extends AppCompatActivity {
     private EditText txtInput;
     //private ListView viewText; COMMENTED OUT: never used.
     private String shelfId;
-    private final long DELAY = 10; // 10 nano second delay
+    private final long DELAY = 3000; // 10 nano second delay
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
