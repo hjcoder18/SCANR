@@ -23,5 +23,14 @@
         android:onClick="directToScanning"
         android:textSize="35sp"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/main_button"
+        android:text="Begin Audit"
+        android:textSize="35sp"
+        android:textColor="#ffffff"
+        />
 
 </RelativeLayout>
