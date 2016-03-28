@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,7 @@ public class Loading extends AppCompatActivity {
 
     private static final String TAG = "LoadingActivity";
     TextView textView;
+    TextView outputView;
     Button get;
     Button post;
     String jsonString;
@@ -60,6 +62,8 @@ public class Loading extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading_page);
         textView = (TextView) findViewById(R.id.isConnected);
+        outputView = (TextView) findViewById(R.id.jsonContent);
+        outputView.setMovementMethod(new ScrollingMovementMethod());
         get = (Button) findViewById(R.id.getButton);
         post = (Button) findViewById(R.id.postButton);
 
@@ -148,7 +152,8 @@ public class Loading extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... params) {
             try {
-                final TextView outputView = (TextView) findViewById(R.id.jsonContent);
+                //final TextView outputView = (TextView) findViewById(R.id.jsonContent);
+
                 URL url = new URL("http://php-kormac.rhcloud.com/file.json");
 
                 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
@@ -171,7 +176,7 @@ public class Loading extends AppCompatActivity {
                 output.append(System.getProperty("line.separator") + "Request Parameters " + urlParameters);
                 output.append(System.getProperty("line.separator")  + "Response Code " + responseCode);
                 output.append(System.getProperty("line.separator")  + "Type " + "POST");
-                output.append(System.getProperty("line.seperator") + jsonString);
+
                 BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line = "";
                 StringBuilder responseOutput = new StringBuilder();
@@ -191,7 +196,6 @@ public class Loading extends AppCompatActivity {
                         progress.dismiss();
                     }
                 });
-
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
