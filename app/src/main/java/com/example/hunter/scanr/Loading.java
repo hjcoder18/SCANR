@@ -156,7 +156,7 @@ public class Loading extends AppCompatActivity {
             try {
                 //final TextView outputView = (TextView) findViewById(R.id.jsonContent);
 
-                URL url = new URL("http://php-kormac.rhcloud.com/file.json");
+                URL url = new URL("https://ustorewebsb.byui.edu/Ordering/Audit/RackData");
 
                 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
                 String urlParameters = jsonString;
