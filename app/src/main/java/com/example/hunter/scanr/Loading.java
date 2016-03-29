@@ -70,8 +70,10 @@ public class Loading extends AppCompatActivity {
         if (isConnected()) {
             textView.setBackgroundColor(0xFF00CC00);
             textView.setText("You are connected!");
+            Toast.makeText(this, "Internet is connected", Toast.LENGTH_LONG).show();
         } else {
             textView.setText("You are NOT connected!");
+            Toast.makeText(this, "Internet is not connected", Toast.LENGTH_LONG).show();
         }
     }
 //    public static String GET(String line) {

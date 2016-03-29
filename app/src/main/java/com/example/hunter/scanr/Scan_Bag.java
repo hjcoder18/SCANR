@@ -1,8 +1,13 @@
 package com.example.hunter.scanr;
 
 //import android.content.Context; never used import
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 //import android.net.Uri; never used import
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -164,6 +169,69 @@ public class Scan_Bag extends AppCompatActivity {
         }
     };
 
+    public void buttonClicked(View v) {
+        if (isConnected()) {
+            sendButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!isConnected()) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Scan_Bag.this);
+                        builder.setMessage("Internet Connection Required.. Please try again").setCancelable(false).setPositiveButton("RETRY",
+                                new DialogInterface.OnClickListener(){
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent intent = new Intent(Scan_Bag.this, Scan_Bag.class);
+                                        finish();
+                                        startActivity(intent);
+                                    }
+                                }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                        AlertDialog alert = builder.create();
+                        alert.setTitle("Network Error!");
+                        alert.show();
+                    } else {
+//                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/"));
+//                        startActivity(intent);
+                        redirect();
+                    }
+                }
+            });
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Internet Connection Required... Please try again.").setCancelable(false).setPositiveButton("RETRY",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
+                        }
+                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.setTitle("Network Error!");
+            alert.show();
+        }
+    }
+
+    public boolean isConnected() {
+        ConnectivityManager internet = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = internet.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * This method will add the bag objects into the list
      *
@@ -230,7 +298,7 @@ public class Scan_Bag extends AppCompatActivity {
     /*
      * http://www.101apps.co.za/index.php/articles/passing-data-between-activities.html
      */
-    public void redirect(View v) {
+    public void redirect() {
         //create the json string...
         Gson gson = new Gson();
         String jsonString = gson.toJson(rack);
