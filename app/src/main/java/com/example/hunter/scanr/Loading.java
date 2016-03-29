@@ -157,10 +157,10 @@ public class Loading extends AppCompatActivity {
                 URL url = new URL("http://php-kormac.rhcloud.com/file.json");
 
                 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-                String urlParameters = "fizz=buzz";
+                String urlParameters = jsonString;
                 connection.setRequestMethod("POST");
-                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
-                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestProperty("Accept", "application/json");
                 connection.setDoOutput(true);
                 DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
                 dStream.writeBytes(urlParameters);
