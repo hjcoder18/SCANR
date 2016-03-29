@@ -10,9 +10,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 //import android.view.View; never used import
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-//import android.widget.Button; never used import
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -57,7 +58,8 @@ public class Scan_Bag extends AppCompatActivity {
     private EditText txtInput;
     //private ListView viewText; COMMENTED OUT: never used.
     private String shelfId;
-    private final long DELAY = 3000; // 10 nano second delay
+    private final long DELAY = 10; // 10 nano second delay
+    Button sendButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,8 @@ public class Scan_Bag extends AppCompatActivity {
         list.setAdapter(adapt);
         txtInput = (EditText) findViewById(R.id.input);
         txtInput.addTextChangedListener(watchmen);
+        sendButton = (Button) findViewById(R.id.sendReportButton);
+        sendButton.setEnabled(false);
     }
 
     TextWatcher watchmen = new TextWatcher() {
@@ -134,9 +138,11 @@ public class Scan_Bag extends AppCompatActivity {
                             else {
                                 if (checkShelf(textToAdd)) {
                                     //its the shelf, save and stop
-                                    Gson gson = new Gson();
-                                    String json = gson.toJson(rack);
-                                    redirect(json);
+                                    //Gson gson = new Gson();
+                                    //String json = gson.toJson(rack);
+                                    //enable the send button
+                                    sendButton.setEnabled(true);
+                                    //redirect(json);
                                     //clearList();
                                 } else {
                                     //its not the shelf, clear and start over
@@ -224,7 +230,11 @@ public class Scan_Bag extends AppCompatActivity {
     /*
      * http://www.101apps.co.za/index.php/articles/passing-data-between-activities.html
      */
-    void redirect(String jsonString) {
+    public void redirect(View v) {
+        //create the json string...
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(rack);
+
         Intent Loading_Act = new Intent(this, Loading.class);
         // Put string into a bundle and then pass the bundle to the new activity
         Bundle bundle = new Bundle();
