@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="To Begin, Scan the Shelf barcode"
+        android:text="To Begin, Scan the Rack barcode"
         android:id="@+id/instructions_shelf"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -35,5 +35,18 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/button"
         android:onClick="Submit" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/ErrorMessages"
+        android:gravity="center"
+        android:textColor="@color/ErrorRed"
+        android:layout_below="@+id/buttonSub"
+        android:layout_alignRight="@+id/input"
+        android:layout_alignEnd="@+id/input"
+        android:layout_alignLeft="@+id/input"
+        android:layout_alignStart="@+id/input" />
 
 </RelativeLayout>

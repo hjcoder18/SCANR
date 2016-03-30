@@ -31,6 +31,13 @@
                 android:value=".Home" />
         </activity>
         <activity
+            android:name=".Search_Bag"
+            android:parentActivityName=".Home">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home" />
+        </activity>
+        <activity
             android:name=".Scan_Bag"
             android:parentActivityName=".Scan_Shelf">
             <meta-data
@@ -43,8 +50,8 @@
             <meta-data
                 android:name=".android.support.PARENT_ACTIVITY"
                 android:value=".Scan_Bag" />
-
         </activity>
+        <activity android:name=".Search_Bag"></activity>
     </application>
 
 </manifest>

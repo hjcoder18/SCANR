@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class Scan_Shelf extends AppCompatActivity {
 
     // Pattern for the Shelf
     Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
-
+    TextView errors;
     private EditText txtInput;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,8 @@ public class Scan_Shelf extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanning_shelf);
         txtInput = (EditText) findViewById(R.id.input);
+        errors = (TextView) findViewById(R.id.ErrorMessages);
+        errors.setText("");
     }
 
     /**
@@ -57,11 +60,11 @@ public class Scan_Shelf extends AppCompatActivity {
                 redirect(textToAdd);
             }
             else if (!check(textToAdd)){
-                Toast.makeText(Scan_Shelf.this, "ERROR: Incorrect barcode, Please Try Again", Toast.LENGTH_SHORT).show();
+                errors.setText("ERROR: Incorrect barcode, Please Try Again");
                 txtInput.setText("");
             }
             else {
-                Log.e(TAG, "ERROR: some strangeness happened");
+                Log.e(TAG, "ERROR: Correct Barcode scanned but still misfire, troubleshoot needed.");
             }
         }
     }
