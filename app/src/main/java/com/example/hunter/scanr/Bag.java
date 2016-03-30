@@ -43,17 +43,15 @@ public class Bag extends AppCompatActivity{
     private String rackID; //
     //private int bagIndex;  // used by Shelf class
 
-//    studentFirstName = item.FirstName,
-//    studentLastName = item.LastName,
-//    bagId = item.OrderID + "",
-//    shelfID = item.RoomCode,
-//    studentID = item.INumber
-
     /**
      * Default Constructor
      */
     public Bag() {
-        //bagIndex = -1;
+        bagId = "";
+        studentID = 0;
+        rackID = "";
+        studentFirstName = "";
+        studentLastName = "";
     }
 
     /**
