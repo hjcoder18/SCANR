@@ -234,8 +234,8 @@ public class Scan_Bag extends AppCompatActivity {
         //this next list is just for display
         listOfBags.add(text);
         adapt.notifyDataSetChanged();
-        Gson gson = new Gson();
-        String json = gson.toJson(rack);
+//        Gson gson = new Gson();
+//        String json = gson.toJson(rack);
 //        showJson(json);
     }
 

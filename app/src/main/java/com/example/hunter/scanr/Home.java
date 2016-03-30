@@ -32,4 +32,9 @@ public class Home extends AppCompatActivity {
         startActivity(scan_act);
     }
 
+    public void directToSearchBag(View v) {
+        Intent search_bag = new Intent(this, Search_Bag.class);
+        startActivity(search_bag);
+    }
+
 }

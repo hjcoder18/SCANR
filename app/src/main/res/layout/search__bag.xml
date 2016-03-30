@@ -22,7 +22,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/input"
         android:layout_below="@+id/instructions"
         android:layout_alignLeft="@+id/instructions"
         android:layout_alignStart="@+id/instructions"
@@ -33,14 +33,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Student's Name"
         android:gravity="center"
         android:id="@+id/student_name"
-        android:layout_below="@+id/editText"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText" />
+        android:layout_below="@+id/input"
+        android:layout_alignLeft="@+id/input"
+        android:layout_alignStart="@+id/input"
+        android:layout_alignRight="@+id/input"
+        android:layout_alignEnd="@+id/input" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,7 +56,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="I-Number"
         android:id="@+id/student_inum"
         android:layout_below="@+id/result_name"
         android:layout_centerHorizontal="true" />
@@ -77,7 +75,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Bag ID"
         android:id="@+id/bag_id"
         android:layout_below="@+id/result_inum"
         android:layout_centerHorizontal="true" />
@@ -97,7 +94,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Room Code"
         android:id="@+id/room_code"
         android:layout_below="@+id/result_bag_id"
         android:layout_centerHorizontal="true" />
@@ -119,6 +115,31 @@
         android:text="Clear"
         android:background="@drawable/button"
         android:id="@+id/clearButton"
-        android:layout_below="@+id/result_room_code"
+        android:layout_below="@+id/ErrorMessages"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/ErrorMessages"
+        android:layout_below="@+id/result_room_code"
+        android:layout_alignRight="@+id/student_name"
+        android:layout_alignEnd="@+id/student_name"
+        android:layout_alignLeft="@+id/student_name"
+        android:layout_alignStart="@+id/student_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="output should go here..."
+        android:id="@+id/outputs"
+        android:layout_below="@+id/input"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/clearButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
