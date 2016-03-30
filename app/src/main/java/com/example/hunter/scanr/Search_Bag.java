@@ -37,10 +37,10 @@ public class Search_Bag extends AppCompatActivity {
 
     //UI stuff
     private EditText input;
-//    TextView name;
-//    TextView Inum;
-//    TextView bagId;
-//    TextView roomCode;
+    TextView name;
+    TextView Inum;
+    TextView bagId;
+    TextView roomCode;
     TextView errors;
     TextView output;
     Button clearButton;
@@ -55,10 +55,10 @@ public class Search_Bag extends AppCompatActivity {
         input = (EditText) findViewById(R.id.input);
         input.addTextChangedListener(watcher);
         output = (TextView) findViewById(R.id.outputs);
-//        name = (TextView) findViewById(R.id.result_name);
-//        Inum = (TextView) findViewById(R.id.result_inum);
-//        bagId = (TextView) findViewById(R.id.result_bag_id);
-//        roomCode = (TextView) findViewById(R.id.result_room_code);
+        name = (TextView) findViewById(R.id.result_name);
+        Inum = (TextView) findViewById(R.id.result_inum);
+        bagId = (TextView) findViewById(R.id.result_bag_id);
+        roomCode = (TextView) findViewById(R.id.result_room_code);
         errors = (TextView) findViewById(R.id.ErrorMessages);
         clearButton = (Button) findViewById(R.id.clearButton);
         studentBag = new Bag();
