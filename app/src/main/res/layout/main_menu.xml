@@ -20,8 +20,9 @@
         android:id="@+id/button_scan"
         android:onClick="directToScanning"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
 
     <Button
         android:layout_width="match_parent"
@@ -34,9 +35,10 @@
         android:drawablePadding="-60dp"
         android:paddingLeft="65dp"
         android:background="@drawable/button"
-        android:layout_below="@+id/button_scan"
+        android:onClick="directToSearchBag"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="directToSearchBag" />
+        android:layout_marginBottom="190dp" />
 
 </RelativeLayout>
