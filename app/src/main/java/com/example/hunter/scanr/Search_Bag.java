@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -54,14 +56,13 @@ public class Search_Bag extends AppCompatActivity {
         //Main initialization of all fields...
         input = (EditText) findViewById(R.id.input);
         input.addTextChangedListener(watcher);
-        output = (TextView) findViewById(R.id.outputs);
         name = (TextView) findViewById(R.id.result_name);
         Inum = (TextView) findViewById(R.id.result_inum);
         bagId = (TextView) findViewById(R.id.result_bag_id);
         roomCode = (TextView) findViewById(R.id.result_room_code);
         errors = (TextView) findViewById(R.id.ErrorMessages);
         clearButton = (Button) findViewById(R.id.clearButton);
-        studentBag = new Bag();
+        //studentBag = new Bag();
     }
 
     TextWatcher watcher = new TextWatcher() {
@@ -148,8 +149,6 @@ public class Search_Bag extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... params) {
             try {
-
-                final TextView outputView = (TextView) findViewById(R.id.outputs);
                 URL url = new URL(incomplete_url + bagCode);
 
                 HttpURLConnection c = (HttpURLConnection) url.openConnection();
@@ -183,8 +182,8 @@ public class Search_Bag extends AppCompatActivity {
 
                         final StringBuilder output = new StringBuilder("Request URL " + url);
                         //output.append(System.getProperty("line.separator") + "Request Parameters " + urlParameters);
-                        output.append(System.getProperty("line.separator") + "Response Code " + status);
-                        output.append(System.getProperty("line.separator") + "Type " + "GET");
+                        //output.append(System.getProperty("line.separator") + "Response Code " + status);
+                        //output.append(System.getProperty("line.separator") + "Type " + "GET");
                         BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
                         String line = "";
                         StringBuilder responseOutput = new StringBuilder();
@@ -193,13 +192,17 @@ public class Search_Bag extends AppCompatActivity {
                             responseOutput.append(line);
                         }
                         br.close();
-                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
-
+                //output.append(responseOutput.toString());
+                String toConvert = output.toString();
+                Gson gson = new Gson();
+                studentBag = gson.fromJson(toConvert, Bag.class);
+                System.out.println(studentBag);
                 Search_Bag.this.runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
-                        outputView.setText(output);
+                        name.setText(studentBag.getStudentName());
+
                         progress.dismiss();
                 }
                 });

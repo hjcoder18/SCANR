@@ -63,6 +63,22 @@ public class Bag extends AppCompatActivity{
         bagId = id;
     }
 
+    public String getStudentFirstName() {
+        return studentFirstName;
+    }
+
+    public void setStudentFirstName(String studentFirstName) {
+        this.studentFirstName = studentFirstName;
+    }
+
+    public String getStudentLastName() {
+        return studentLastName;
+    }
+
+    public void setStudentLastName(String studentLastName) {
+        this.studentLastName = studentLastName;
+    }
+
     /**
      * Method that sets the student's name associated with the bag.
      *

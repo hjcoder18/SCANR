@@ -35,20 +35,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center"
         android:id="@+id/student_name"
+        android:text="Name:"
         android:layout_below="@+id/input"
-        android:layout_alignLeft="@+id/input"
-        android:layout_alignStart="@+id/input"
-        android:layout_alignRight="@+id/input"
-        android:layout_alignEnd="@+id/input" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/result_name"
-        android:layout_below="@+id/student_name"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -56,37 +44,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/result_name"
+        android:layout_below="@+id/input"
+        android:layout_toRightOf="@+id/student_name"
+        android:layout_alignRight="@+id/result_bag_id"
+        android:layout_alignEnd="@+id/result_bag_id" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/student_inum"
-        android:layout_below="@+id/result_name"
-        android:layout_centerHorizontal="true" />
+        android:text="I-Number:"
+        android:layout_below="@+id/student_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/result_inum"
-        android:layout_below="@+id/student_inum"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/result_name"
-        android:layout_alignEnd="@+id/result_name" />
+        android:layout_below="@+id/result_name"
+        android:layout_toRightOf="@+id/student_inum"
+        android:layout_alignRight="@+id/result_room_code"
+        android:layout_alignEnd="@+id/result_room_code" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/bag_id"
-        android:layout_below="@+id/result_inum"
-        android:layout_centerHorizontal="true" />
+        android:text="Bag ID:"
+        android:layout_below="@+id/student_inum"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/result_bag_id"
-        android:layout_below="@+id/bag_id"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_below="@+id/student_inum"
+        android:layout_toRightOf="@+id/bag_id"
         android:layout_alignRight="@+id/result_inum"
         android:layout_alignEnd="@+id/result_inum" />
 
@@ -95,17 +95,18 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/room_code"
-        android:layout_below="@+id/result_bag_id"
-        android:layout_centerHorizontal="true" />
+        android:text="Room Code:"
+        android:layout_below="@+id/bag_id"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/result_room_code"
-        android:layout_below="@+id/room_code"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_toRightOf="@+id/room_code"
+        android:layout_below="@+id/result_bag_id"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -123,23 +124,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/ErrorMessages"
-        android:layout_below="@+id/result_room_code"
-        android:layout_alignRight="@+id/student_name"
-        android:layout_alignEnd="@+id/student_name"
-        android:layout_alignLeft="@+id/student_name"
-        android:layout_alignStart="@+id/student_name" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="output should go here..."
-        android:id="@+id/outputs"
-        android:layout_below="@+id/input"
+        android:layout_below="@+id/room_code"
+        android:layout_alignRight="@+id/result_room_code"
+        android:layout_alignEnd="@+id/result_room_code"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/clearButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
