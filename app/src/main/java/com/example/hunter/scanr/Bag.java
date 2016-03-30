@@ -47,11 +47,11 @@ public class Bag extends AppCompatActivity{
      * Default Constructor
      */
     public Bag() {
-        bagId = "";
-        studentID = 0;
-        rackID = "";
-        studentFirstName = "";
-        studentLastName = "";
+        bagId = "defaultValue";
+        studentID = 000000000;
+        rackID = "defaultValue";
+        studentFirstName = "defaultValue";
+        studentLastName = "defaultValue";
     }
 
     /**

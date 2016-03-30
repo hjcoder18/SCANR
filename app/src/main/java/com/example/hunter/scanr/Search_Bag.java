@@ -33,6 +33,7 @@ public class Search_Bag extends AppCompatActivity {
     String bagCode;
     String incomplete_url = "https://ustorewebsb.byui.edu/Ordering/Audit/GetItem?itemId=";
     private ProgressDialog progress;
+    Bag studentBag;
 
     //UI stuff
     private EditText input;
@@ -60,6 +61,7 @@ public class Search_Bag extends AppCompatActivity {
 //        roomCode = (TextView) findViewById(R.id.result_room_code);
         errors = (TextView) findViewById(R.id.ErrorMessages);
         clearButton = (Button) findViewById(R.id.clearButton);
+        studentBag = new Bag();
     }
 
     TextWatcher watcher = new TextWatcher() {
