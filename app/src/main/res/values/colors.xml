@@ -6,4 +6,5 @@
     <color name="colorAccent">#056cb6</color>
     <color name="submenuColor">#cc0d0a</color>
     <color name="white">#ffffff</color>
+    <color name="ErrorRed">#f10404</color>
 </resources>

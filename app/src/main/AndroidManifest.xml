@@ -43,8 +43,8 @@
             <meta-data
                 android:name=".android.support.PARENT_ACTIVITY"
                 android:value=".Scan_Bag" />
-
         </activity>
+        <activity android:name=".Search_Bag"></activity>
     </application>
 
 </manifest>

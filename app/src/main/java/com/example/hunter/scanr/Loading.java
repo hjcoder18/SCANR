@@ -159,6 +159,11 @@ public class Loading extends AppCompatActivity {
                 URL url = new URL("https://ustorewebsb.byui.edu/Ordering/Audit/RackData");
 
                 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+
+                //set a timeout to avoid infinite waiting times
+                connection.setConnectTimeout(5000); //5 seconds until a connection times out
+                connection.setReadTimeout(10000); //10 seconds until a reading timeout occurs, meaning with connections already established.
+
                 String urlParameters = jsonString;
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
@@ -179,6 +184,7 @@ public class Loading extends AppCompatActivity {
                 output.append(System.getProperty("line.separator")  + "Response Code " + responseCode);
                 output.append(System.getProperty("line.separator")  + "Type " + "POST");
 
+                //DON'T THINK WE NEED THIS AS ITS OUTPUT AND WE JUST NEED TO PUSH JSON OBJECT TO SERVER AND GET RESPONSECODE
                 BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line = "";
                 StringBuilder responseOutput = new StringBuilder();
@@ -191,7 +197,6 @@ public class Loading extends AppCompatActivity {
                 output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
 
                 Loading.this.runOnUiThread(new Runnable() {
-
                     @Override
                     public void run() {
                         outputView.setText(output);

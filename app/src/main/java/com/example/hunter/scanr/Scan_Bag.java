@@ -1,10 +1,10 @@
 package com.example.hunter.scanr;
 
-//import android.content.Context; never used import
+import android.content.Context;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-//import android.net.Uri; never used import
+import android.net.Uri;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -14,25 +14,25 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-//import android.view.View; never used import
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-//import java.io.BufferedReader; ==================
-//import java.io.File;
-//import java.io.FileInputStream;
-//import java.io.FileNotFoundException; never used
-//import java.io.FileOutputStream;      imports
-//import java.io.FileWriter;
-//import java.io.IOException;
-//import java.io.InputStreamReader; ===============
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -63,8 +63,9 @@ public class Scan_Bag extends AppCompatActivity {
     private EditText txtInput;
     //private ListView viewText; COMMENTED OUT: never used.
     private String shelfId;
-    private final long DELAY = 10; // 10 nano second delay
+    private final long DELAY = 5000; // 10 nano second delay
     Button sendButton;
+    TextView errors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +102,7 @@ public class Scan_Bag extends AppCompatActivity {
         txtInput.addTextChangedListener(watchmen);
         sendButton = (Button) findViewById(R.id.sendReportButton);
         sendButton.setEnabled(false);
+        errors = (TextView) findViewById(R.id.ErrorMessages);
     }
 
     TextWatcher watchmen = new TextWatcher() {
@@ -125,6 +127,7 @@ public class Scan_Bag extends AppCompatActivity {
 
                             //if its a bag, add it to list
                             if (checkBag(textToAdd)) {
+                                errors.setText("");
                                 final String codeToAdd = textToAdd.replaceAll("/C", "");
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -146,6 +149,7 @@ public class Scan_Bag extends AppCompatActivity {
                                     //Gson gson = new Gson();
                                     //String json = gson.toJson(rack);
                                     //enable the send button
+                                    errors.setText("");
                                     sendButton.setEnabled(true);
                                     //redirect(json);
                                     //clearList();
@@ -154,7 +158,7 @@ public class Scan_Bag extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(getApplicationContext(), "ERROR: Rescan Initial Shelf When finished.", Toast.LENGTH_SHORT).show();
+                                            errors.setText("ERROR: Unrecognized Barcode, scan bags on rack " + shelfId + " or scan Rack again to begin processing.");
                                             txtInput.setText("");
                                         }
                                     });
@@ -246,7 +250,7 @@ public class Scan_Bag extends AppCompatActivity {
         adapt.notifyDataSetChanged();
         Gson gson = new Gson();
         String json = gson.toJson(rack);
-        showJson(json);
+//        showJson(json);
     }
 
     /**
@@ -283,17 +287,17 @@ public class Scan_Bag extends AppCompatActivity {
         return text.equals(shelfId);
     }
 
-    ///////////////////////////////////////////
-    ///////////////////////////////////////////
-    ///////////////////////////////////////////
-    //SHOW JSON TEST METHOD FOR TESTING PURPOSES ONLY
-    //delete when finished.
-    void showJson(String jsonString) {
-        Toast.makeText(getApplicationContext(), "The Rack Json Object: " + jsonString, Toast.LENGTH_LONG).show();
-    }
-    //////////////////////////////////////////
-    //////////////////////////////////////////
-    //////////////////////////////////////////
+//    ///////////////////////////////////////////
+//    ///////////////////////////////////////////
+//    ///////////////////////////////////////////
+//    //SHOW JSON TEST METHOD FOR TESTING PURPOSES ONLY
+//    //delete when finished.
+//    void showJson(String jsonString) {
+//        Toast.makeText(getApplicationContext(), "The Rack Json Object: " + jsonString, Toast.LENGTH_LONG).show();
+//    }
+//    //////////////////////////////////////////
+//    //////////////////////////////////////////
+//    //////////////////////////////////////////
 
     /*
      * http://www.101apps.co.za/index.php/articles/passing-data-between-activities.html

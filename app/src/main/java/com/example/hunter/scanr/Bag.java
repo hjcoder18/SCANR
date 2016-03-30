@@ -40,10 +40,14 @@ public class Bag extends AppCompatActivity{
     private String studentFirstName; // used by bag class
     private String studentLastName;  // used by bag class
     private int studentID;           // The student
-    private int aisle;
     private String rackID; //
     //private int bagIndex;  // used by Shelf class
 
+//    studentFirstName = item.FirstName,
+//    studentLastName = item.LastName,
+//    bagId = item.OrderID + "",
+//    shelfID = item.RoomCode,
+//    studentID = item.INumber
 
     /**
      * Default Constructor
@@ -117,24 +121,6 @@ public class Bag extends AppCompatActivity{
      */
     public String getBagId() {
         return bagId;
-    }
-
-    /**
-     * Mutator method to set the Aisle location of the bag
-     *
-     * @param pos - the position of the bag for its respective Aisle
-     */
-    public void setAisle(int pos) {
-        this.aisle = pos;
-    }
-
-    /**
-     * The accessor method to retrieve the Aisle location of a bag
-     *
-     * @return aisle - the aisle location of the bag.
-     */
-    public int getAisle() {
-        return aisle;
     }
 
     /**

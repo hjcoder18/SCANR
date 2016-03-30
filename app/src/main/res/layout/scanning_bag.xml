@@ -14,27 +14,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Scan all bags on shelf...\n When finished scan shelf again"
+        android:text="Scan all bags on rack...\n When finished scan rack again"
         android:id="@+id/instructions_bag"
         android:textSize="17.5dp"
         android:gravity="center"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/indicator_bags"
-        android:layout_toEndOf="@+id/indicator_bags" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Bags:"
-        android:id="@+id/indicator_bags"
-        android:layout_below="@+id/input"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:id="@+id/input"
         android:layout_below="@+id/instructions_bag"
         android:layout_alignParentLeft="true"
@@ -46,7 +35,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listOfBags"
-        android:layout_below="@+id/indicator_bags" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/sendReportButton"
+        android:layout_below="@+id/input" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -55,9 +47,21 @@
         android:text="Send Report"
         android:background="@drawable/button"
         android:id="@+id/sendReportButton"
+        android:onClick="buttonClicked"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="buttonClicked" />
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/ErrorMessages"
+
+        android:textColor="@color/ErrorRed"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/sendReportButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
