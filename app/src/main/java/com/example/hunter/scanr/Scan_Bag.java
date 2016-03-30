@@ -180,20 +180,13 @@ public class Scan_Bag extends AppCompatActivity {
                 public void onClick(View v) {
                     if (!isConnected()) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(Scan_Bag.this);
-                        builder.setMessage("Internet Connection Required.. Please try again").setCancelable(false).setPositiveButton("RETRY",
+                        builder.setMessage("Internet Connection Required.. Please try again").setCancelable(false).setNegativeButton("CANCEL",
                                 new DialogInterface.OnClickListener(){
                                     @Override
                                     public void onClick(DialogInterface dialog, int id) {
-                                        Intent intent = new Intent(Scan_Bag.this, Scan_Bag.class);
-                                        finish();
-                                        startActivity(intent);
+                                        dialog.dismiss();
                                     }
-                                }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                                });
                         AlertDialog alert = builder.create();
                         alert.setTitle("Network Error!");
                         alert.show();
@@ -206,20 +199,13 @@ public class Scan_Bag extends AppCompatActivity {
             });
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Internet Connection Required... Please try again.").setCancelable(false).setPositiveButton("RETRY",
+            builder.setMessage("Internet Connection Required... Please try again.").setCancelable(false).setNegativeButton("CANCEL",
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            Intent intent = getIntent();
-                            finish();
-                            startActivity(intent);
+                            dialog.dismiss();
                         }
-                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
-                }
-            });
+                    });
             AlertDialog alert = builder.create();
             alert.setTitle("Network Error!");
             alert.show();
