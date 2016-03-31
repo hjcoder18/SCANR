@@ -136,10 +136,12 @@ public class Loading extends AppCompatActivity {
             this.context = c;
         }
         protected void onPreExecute(){
-            progress= new ProgressDialog(this.context);
-            progress.setMessage("Loading");
+            progress = new ProgressDialog(this.context);
+            progress.setTitle("Trying to connect to server");
+            progress.setMessage("Please wait...");
             progress.show();
         }
+
         @Override
         protected Void doInBackground(String... params) {
             try {
