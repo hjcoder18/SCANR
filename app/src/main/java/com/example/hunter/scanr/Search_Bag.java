@@ -31,7 +31,7 @@ public class Search_Bag extends AppCompatActivity {
     //non-UI stuff
     private static final String TAG = "SearchBagActivity";
     Pattern bagPattern = Pattern.compile("\\/C\\/C\\d+\\/C\\/C");
-    private final long DELAY = 10; // 10 nano second delay
+    private final long DELAY = 5000; // 10 nano second delay
     String bagCode;
     String incomplete_url = "https://ustorewebsb.byui.edu/Ordering/Audit/GetItem?itemId=";
     private ProgressDialog progress;
@@ -117,6 +117,14 @@ public class Search_Bag extends AppCompatActivity {
         }
     };
 
+    public void ClearFields(View v) {
+        name.setText("");
+        Inum.setText("");
+        bagId.setText("");
+        roomCode.setText("");
+        errors.setText("");
+    }
+
     boolean checkBag(String text) {
         Matcher bagMatch = bagPattern.matcher(text);
         return bagMatch.matches();
@@ -164,37 +172,21 @@ public class Search_Bag extends AppCompatActivity {
                 c.connect();
                 int status = c.getResponseCode();
 
-//                switch(status) {
-//                    case 200:
-//                    case 201:
-//                        BufferedReader buffRead = new BufferedReader(new InputStreamReader(c.getInputStream()));
-//                        StringBuilder bobTheBuilder = new StringBuilder();
-//                        String line;
-//                        while ((line = buffRead.readLine()) != null) {
-//                            bobTheBuilder.append(line+"\n");
-//                        }
-//                        buffRead.close();
-//                        String results = bobTheBuilder.toString();
+                final StringBuilder output = new StringBuilder("Request URL " + url);//maybe unnecessary
 
-                        //System.out.println("\nSending 'POST' request to URL : " + url);
-                        //System.out.println("Post parameters : " + urlParameters);
-                        //System.out.println("Response Code : " + status);
-
-                        final StringBuilder output = new StringBuilder("Request URL " + url);
-                        //output.append(System.getProperty("line.separator") + "Request Parameters " + urlParameters);
-                        //output.append(System.getProperty("line.separator") + "Response Code " + status);
-                        //output.append(System.getProperty("line.separator") + "Type " + "GET");
-                        BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
-                        String line = "";
-                        StringBuilder responseOutput = new StringBuilder();
-                        System.out.println("output===============" + br);
-                        while ((line = br.readLine()) != null) {
-                            responseOutput.append(line);
-                        }
-                        br.close();
+                BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                String line = "";
+                StringBuilder responseOutput = new StringBuilder();
+                System.out.println("output===============" + br);
+                while ((line = br.readLine()) != null) {
+                    responseOutput.append(line);
+                }
+                Gson gson = new Gson();
+                studentBag = gson.fromJson(br, Bag.class);
+                System.out.println(studentBag);
+                br.close();
                 //output.append(responseOutput.toString());
                 String toConvert = output.toString();
-                Gson gson = new Gson();
                 studentBag = gson.fromJson(toConvert, Bag.class);
                 System.out.println(studentBag);
                 Search_Bag.this.runOnUiThread(new Runnable() {
@@ -204,10 +196,8 @@ public class Search_Bag extends AppCompatActivity {
                         name.setText(studentBag.getStudentName());
 
                         progress.dismiss();
-                }
+                    }
                 });
-
-
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -217,7 +207,6 @@ public class Search_Bag extends AppCompatActivity {
             }
             return null;
         }
-
     }
 
 }

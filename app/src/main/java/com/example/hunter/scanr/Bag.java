@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * The Bag Class, represents each bag on a rack
  *
@@ -39,8 +36,8 @@ public class Bag extends AppCompatActivity{
     private String bagId; //the bag id is the main key and the primary key by which they are ordered...
     private String studentFirstName; // used by bag class
     private String studentLastName;  // used by bag class
-    private int studentID;           // The student
-    private String rackID; //
+    private long studentID;           // The student
+    private String shelfID; //
     //private int bagIndex;  // used by Shelf class
 
     /**
@@ -49,18 +46,18 @@ public class Bag extends AppCompatActivity{
     public Bag() {
         bagId = "defaultValue";
         studentID = 000000000;
-        rackID = "defaultValue";
+        shelfID = "defaultValue";
         studentFirstName = "defaultValue";
         studentLastName = "defaultValue";
     }
 
-    /**
-     * non-default constructor
-     *
-     * @param id - the unique identifier of the bag.
-     */
-    public Bag(String id) {
-        bagId = id;
+
+    public Bag(String bagid, String fName, String lName, String shelfid, long studId) {
+        bagId = bagid;
+        studentID = studId;
+        shelfID = shelfid;
+        studentFirstName = fName;
+        studentLastName = lName;
     }
 
     public String getStudentFirstName() {
@@ -115,7 +112,7 @@ public class Bag extends AppCompatActivity{
      *
      * @return studentID - returns the students ID
      */
-    public int getStudentID() {
+    public long getStudentID() {
         return studentID;
     }
 
@@ -140,19 +137,19 @@ public class Bag extends AppCompatActivity{
     /**
      * the mutator method to set and change the Rack ID of the bag
      *
-     * @param rack - the rack to set the bag's rackID to
+     * @param rack - the rack to set the bag's shelfID to
      */
     public void setRack(String rack) {
-        rackID = rack;
+        shelfID = rack;
     }
 
     /**
-     * Accessor method to retrieve the rackID of the bag
+     * Accessor method to retrieve the shelfID of the bag
      *
-     * @return - rackID - the rackID of the bag
+     * @return - shelfID - the shelfID of the bag
      */
-    public String getRackID() {
-        return rackID;
+    public String getShelfID() {
+        return shelfID;
     }
 
 }
