@@ -24,7 +24,6 @@ public class Home extends AppCompatActivity {
         } catch (NullPointerException e) {
             Log.e(TAG, "Failed to create University Store Logo", e);
         }
-
     }
 
     public void directToScanning(View v) {

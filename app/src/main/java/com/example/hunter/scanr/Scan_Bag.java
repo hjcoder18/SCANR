@@ -145,14 +145,9 @@ public class Scan_Bag extends AppCompatActivity {
                             //if not bag, check if its a shelf
                             else {
                                 if (checkShelf(textToAdd)) {
-                                    //its the shelf, save and stop
-                                    //Gson gson = new Gson();
-                                    //String json = gson.toJson(rack);
                                     //enable the send button
                                     errors.setText("");
                                     sendButton.setEnabled(true);
-                                    //redirect(json);
-                                    //clearList();
                                 } else {
                                     //its not the shelf, clear and start over
                                     runOnUiThread(new Runnable() {
@@ -173,7 +168,7 @@ public class Scan_Bag extends AppCompatActivity {
         }
     };
 
-    public void buttonClicked(View v) {
+    public void sendReport(View v) {
         if (isConnected()) {
             sendButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -191,8 +186,6 @@ public class Scan_Bag extends AppCompatActivity {
                         alert.setTitle("Network Error!");
                         alert.show();
                     } else {
-//                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/"));
-//                        startActivity(intent);
                         redirect();
                     }
                 }
@@ -272,18 +265,6 @@ public class Scan_Bag extends AppCompatActivity {
         Matcher shelfMatch = shelfPattern.matcher(text);
         return text.equals(shelfId);
     }
-
-//    ///////////////////////////////////////////
-//    ///////////////////////////////////////////
-//    ///////////////////////////////////////////
-//    //SHOW JSON TEST METHOD FOR TESTING PURPOSES ONLY
-//    //delete when finished.
-//    void showJson(String jsonString) {
-//        Toast.makeText(getApplicationContext(), "The Rack Json Object: " + jsonString, Toast.LENGTH_LONG).show();
-//    }
-//    //////////////////////////////////////////
-//    //////////////////////////////////////////
-//    //////////////////////////////////////////
 
     /*
      * http://www.101apps.co.za/index.php/articles/passing-data-between-activities.html

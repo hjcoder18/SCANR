@@ -35,8 +35,6 @@ public class Loading extends AppCompatActivity {
     private static final String TAG = "LoadingActivity";
     TextView textView;
     TextView outputView;
-    Button get;
-    Button post;
     String jsonString;
     private ProgressDialog progress;
 
@@ -64,13 +62,12 @@ public class Loading extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.isConnected);
         outputView = (TextView) findViewById(R.id.jsonContent);
         outputView.setMovementMethod(new ScrollingMovementMethod());
-        get = (Button) findViewById(R.id.getButton);
-        post = (Button) findViewById(R.id.postButton);
 
         if (isConnected()) {
             textView.setBackgroundColor(0xFF00CC00);
             textView.setText("You are connected!");
             Toast.makeText(this, "Internet is connected", Toast.LENGTH_LONG).show();
+            sendPostRequest();
         } else {
             textView.setText("You are NOT connected!");
             Toast.makeText(this, "Internet is not connected", Toast.LENGTH_LONG).show();
@@ -125,9 +122,8 @@ public class Loading extends AppCompatActivity {
 
     /**
      * SEND POST REQUEST: sends a post request to the url for processing.
-     * @param view
      */
-    public void sendPostRequest(View view) {
+    public void sendPostRequest() {
         new PostClass(this).execute();
     }
 
@@ -135,22 +131,15 @@ public class Loading extends AppCompatActivity {
      * PostClass - AsyncTask that takes care of Post requests
      */
     private class PostClass extends AsyncTask<String, Void, Void> {
-
         private final Context context;
-
         public PostClass(Context c){
-
             this.context = c;
-//            this.error = status;
-//            this.type = t;
         }
-
         protected void onPreExecute(){
             progress= new ProgressDialog(this.context);
             progress.setMessage("Loading");
             progress.show();
         }
-
         @Override
         protected Void doInBackground(String... params) {
             try {
@@ -164,42 +153,42 @@ public class Loading extends AppCompatActivity {
                 connection.setConnectTimeout(5000); //5 seconds until a connection times out
                 connection.setReadTimeout(10000); //10 seconds until a reading timeout occurs, meaning with connections already established.
 
-                String urlParameters = jsonString;
+                //String urlParameters = jsonString;
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setRequestProperty("Accept", "application/json");
                 connection.setDoOutput(true);
                 DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-                dStream.writeBytes(urlParameters);
+                dStream.writeBytes(jsonString);
                 dStream.flush();
                 dStream.close();
                 int responseCode = connection.getResponseCode();
 
                 System.out.println("\nSending 'POST' request to URL : " + url);
-                System.out.println("Post parameters : " + urlParameters);
+                System.out.println("Post parameters : " + jsonString);
                 System.out.println("Response Code : " + responseCode);
 
-                final StringBuilder output = new StringBuilder("Request URL " + url);
-                output.append(System.getProperty("line.separator") + "Request Parameters " + urlParameters);
-                output.append(System.getProperty("line.separator")  + "Response Code " + responseCode);
-                output.append(System.getProperty("line.separator")  + "Type " + "POST");
+//                final StringBuilder output = new StringBuilder("Request URL " + url);
+//                output.append(System.getProperty("line.separator") + "Request Parameters " + jsonString);
+//                output.append(System.getProperty("line.separator")  + "Response Code " + responseCode);
+//                output.append(System.getProperty("line.separator")  + "Type " + "POST");
 
                 //DON'T THINK WE NEED THIS AS ITS OUTPUT AND WE JUST NEED TO PUSH JSON OBJECT TO SERVER AND GET RESPONSECODE
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line = "";
-                StringBuilder responseOutput = new StringBuilder();
-                System.out.println("output===============" + br);
-                while((line = br.readLine()) != null ) {
-                    responseOutput.append(line);
-                }
-                br.close();
+//                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//                String line = "";
+//                StringBuilder responseOutput = new StringBuilder();
+//                System.out.println("output===============" + br);
+//                while((line = br.readLine()) != null ) {
+//                    responseOutput.append(line);
+//                }
+//                br.close();
 
-                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+                //output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
 
                 Loading.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        outputView.setText(output);
+                        //outputView.setText(output);
                         progress.dismiss();
                     }
                 });
@@ -219,88 +208,4 @@ public class Loading extends AppCompatActivity {
         }
 
     }
-
-    /**
-     * SEND GET REQUEST sends a get request to the url for processing.
-     * @param view
-     */
-    public void sendGetRequest(View view) {
-        new GetClass(this).execute();
-    }
-
-    /**
-     * Get CLASS - takes care of get requests
-     */
-    private class GetClass extends AsyncTask<String, Void, Void> {
-
-        private final Context context;
-
-        public GetClass(Context c){
-            this.context = c;
-        }
-
-        protected void onPreExecute(){
-            progress= new ProgressDialog(this.context);
-            progress.setMessage("Loading");
-            progress.show();
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            try {
-
-                final TextView outputView = (TextView) findViewById(R.id.jsonContent);
-                URL url = new URL("http://php-kormac.rhcloud.com/file.json");
-
-                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-                String urlParameters = "fizz=buzz";
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
-                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-
-                int responseCode = connection.getResponseCode();
-
-                System.out.println("\nSending 'POST' request to URL : " + url);
-                System.out.println("Post parameters : " + urlParameters);
-                System.out.println("Response Code : " + responseCode);
-
-                final StringBuilder output = new StringBuilder("Request URL " + url);
-                //output.append(System.getProperty("line.separator") + "Request Parameters " + urlParameters);
-                output.append(System.getProperty("line.separator")  + "Response Code " + responseCode);
-                output.append(System.getProperty("line.separator")  + "Type " + "GET");
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line = "";
-                StringBuilder responseOutput = new StringBuilder();
-                System.out.println("output===============" + br);
-                while((line = br.readLine()) != null ) {
-                    responseOutput.append(line);
-                }
-                br.close();
-
-                output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
-
-                Loading.this.runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        outputView.setText(output);
-                        progress.dismiss();
-
-                    }
-                });
-
-
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-    }
-
-
 }
