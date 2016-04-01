@@ -66,10 +66,10 @@ public class Loading extends AppCompatActivity {
         success = false;
         if (isConnected()) {
             textView.setBackgroundColor(0xFF00CC00);
-            textView.setText("You are connected!");
+            textView.setText("Wifi connected!");
             sendPostRequest();
         } else {
-            textView.setText("You are NOT connected!");
+            textView.setText("Wifi not connected!");
             displayResult();
         }
     }
@@ -158,10 +158,19 @@ public class Loading extends AppCompatActivity {
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setRequestProperty("Accept", "application/json");
                 connection.setDoOutput(true);
-                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-                dStream.writeBytes(jsonString);
-                dStream.flush();
-                dStream.close();
+                try {
+                    DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+                    dStream.writeBytes(jsonString);
+                    dStream.flush();
+                    dStream.close();
+                } catch (java.net.SocketTimeoutException e) {
+                    connection.disconnect();
+                    progress.dismiss();
+                    progress.setTitle("Failed to connect to server");
+                    progress.setMessage("Please try again");
+                    progress.show();
+                    e.printStackTrace();
+                }
                 int responseCode = connection.getResponseCode();
                 if (responseCode == 200) {
                     success = true;
@@ -174,19 +183,17 @@ public class Loading extends AppCompatActivity {
                 Loading.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //outputView.setText(output);
                         progress.dismiss();
                         displayResult();
                         redirect.setEnabled(true);
                     }
                 });
-
-            } catch (java.net.SocketTimeoutException e) {
-                progress.setTitle("Error: Failed to connect");
-                progress.setMessage("Please try again");
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
+                connection.disconnect();
+            }catch (IOException e) {
+                progress.dismiss();
+                progress.setTitle("IO EXCEPTION CAUGHT");
+                progress.setMessage("IOEXCEPTION FIRED");
+                progress.show();
                 e.printStackTrace();
             }
             return null;
