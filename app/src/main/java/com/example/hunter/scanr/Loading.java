@@ -35,6 +35,8 @@ public class Loading extends AppCompatActivity {
     private static final String TAG = "LoadingActivity";
     TextView textView;
     String jsonString;
+    Button redirect;
+    Boolean success;
     private ProgressDialog progress;
 
     @Override
@@ -59,54 +61,17 @@ public class Loading extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading_page);
         textView = (TextView) findViewById(R.id.isConnected);
-
+        redirect = (Button) findViewById(R.id.continueButton);
+        redirect.setEnabled(false);
         if (isConnected()) {
             textView.setBackgroundColor(0xFF00CC00);
             textView.setText("You are connected!");
-            Toast.makeText(this, "Internet is connected", Toast.LENGTH_LONG).show();
             sendPostRequest();
+
         } else {
             textView.setText("You are NOT connected!");
-            Toast.makeText(this, "Internet is not connected", Toast.LENGTH_LONG).show();
         }
     }
-//    public static String GET(String line) {
-//        HttpURLConnection connection = null;
-//        URL url = null;
-//        BufferedReader br = null;
-//        line = "";
-//
-//        try {
-//            url = new URL("https://ustorewebsb.byui.edu/Ordering/Audit/");
-//            connection = (HttpURLConnection) url.openConnection();
-//            connection.setRequestMethod("GET");
-//            connection.connect();
-//
-//            InputStream is = connection.getInputStream();
-//            br = new BufferedReader(new InputStreamReader(is));
-//            StringBuffer sb = new StringBuffer();
-//
-//            while((line = br.readLine()) != null) {
-//                sb.append(line);
-//            }
-//
-//        } catch(MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch(IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            if(connection != null) {
-//                connection.disconnect();
-//            }
-//            try {
-//                br.close();
-//            } catch(IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return line;
-//    }
-
 
     public boolean isConnected() {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
@@ -115,6 +80,11 @@ public class Loading extends AppCompatActivity {
             return true;
         else
             return false;
+    }
+
+    public void directToScanShelf(View v) {
+        Intent scan_act = new Intent(this, Scan_Shelf.class);
+        startActivity(scan_act);
     }
 
     /**
@@ -167,28 +137,13 @@ public class Loading extends AppCompatActivity {
                 System.out.println("Post parameters : " + jsonString);
                 System.out.println("Response Code : " + responseCode);
 
-//                final StringBuilder output = new StringBuilder("Request URL " + url);
-//                output.append(System.getProperty("line.separator") + "Request Parameters " + jsonString);
-//                output.append(System.getProperty("line.separator")  + "Response Code " + responseCode);
-//                output.append(System.getProperty("line.separator")  + "Type " + "POST");
-
-                //DON'T THINK WE NEED THIS AS ITS OUTPUT AND WE JUST NEED TO PUSH JSON OBJECT TO SERVER AND GET RESPONSECODE
-//                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//                String line = "";
-//                StringBuilder responseOutput = new StringBuilder();
-//                System.out.println("output===============" + br);
-//                while((line = br.readLine()) != null ) {
-//                    responseOutput.append(line);
-//                }
-//                br.close();
-
-                //output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
-
                 Loading.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         //outputView.setText(output);
                         progress.dismiss();
+                        startActivity(new Intent(Loading.this, Fail.class));
+                        redirect.setEnabled(true);
                     }
                 });
 
