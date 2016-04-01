@@ -74,6 +74,10 @@ public class Loading extends AppCompatActivity {
         }
     }
 
+    /**
+     * DISPLAY RESULTS
+     *
+     */
     private void displayResult() {
         if (success) {
             startActivity(new Intent(Loading.this, Success.class));
@@ -83,29 +87,46 @@ public class Loading extends AppCompatActivity {
         }
     }
 
+    /**
+     * IS CONNECTED
+     * Tests to see if the scanner gun is connected to the wifi. If it is then it returns true,
+     * otherwise it returns false.
+     *
+     * @return true or false
+     */
     public boolean isConnected() {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        // if connected return true, otherwise return false
         if (networkInfo != null && networkInfo.isConnected())
             return true;
         else
             return false;
     }
 
+    /**
+     * DIRECT TO SCAN SHELF
+     * Directs the application to the scan_shelf activity.
+     *
+     * @param v - needed for button
+     */
     public void directToScanShelf(View v) {
         Intent scan_act = new Intent(this, Scan_Shelf.class);
         startActivity(scan_act);
     }
 
     /**
-     * SEND POST REQUEST: sends a post request to the url for processing.
+     * SEND POST REQUEST
+     * Sends a post request to the url for processing.
      */
     public void sendPostRequest() {
         new PostClass(this).execute();
     }
 
     /**
-     * PostClass - AsyncTask that takes care of Post requests
+     * POST CLASS
+     * AsyncTask that takes care of Post requests
      */
     private class PostClass extends AsyncTask<String, Void, Void> {
         private final Context context;

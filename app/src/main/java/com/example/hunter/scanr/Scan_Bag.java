@@ -168,6 +168,12 @@ public class Scan_Bag extends AppCompatActivity {
         }
     };
 
+    /**
+     * SEND REPORT
+     * Sends the report to the University Store API
+     *
+     * @param v - needed for button
+     */
     public void sendReport(View v) {
         if (isConnected()) {
             sendButton.setOnClickListener(new View.OnClickListener() {
@@ -205,6 +211,13 @@ public class Scan_Bag extends AppCompatActivity {
         }
     }
 
+    /**
+     * IS CONNECTED
+     * Tests to see if the scanner gun is connected to the wifi. If it is then it returns true,
+     * otherwise it returns false.
+     *
+     * @return true or false
+     */
     public boolean isConnected() {
         ConnectivityManager internet = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = internet.getActiveNetworkInfo();
@@ -242,9 +255,10 @@ public class Scan_Bag extends AppCompatActivity {
     }
 
     /**
+     * CHECK BAG
      * This method will check to see if the barcodes matches the patterns
      *
-     * @param text The string to associate the input string received
+     * @param text - The string to associate the input string received
      *             from the barcode
      */
     boolean checkBag(String text) {
@@ -266,8 +280,10 @@ public class Scan_Bag extends AppCompatActivity {
         return text.equals(shelfId);
     }
 
-    /*
-     * http://www.101apps.co.za/index.php/articles/passing-data-between-activities.html
+    /**
+     * REDIRECT
+     * Creates a json string of the rack content, and then
+     * directs the application to the loading activity with the json string.
      */
     public void redirect() {
         //create the json string...
