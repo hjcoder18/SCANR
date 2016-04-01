@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
 
 /**
  * SEARCH BAG CLASS
- * All the variables and methods needed to all the user to scan a bag and then view the content
+ * All the variables and methods needed to allow the user to scan a bag and then view the content
  * for that bag. It does this by having the user scan a bag, we connect with the University Store's
  * API and it sends us a json object of the bag information. The bag content consist of the
  * following:
