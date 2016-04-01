@@ -63,13 +63,23 @@ public class Loading extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.isConnected);
         redirect = (Button) findViewById(R.id.continueButton);
         redirect.setEnabled(false);
+        success = false;
         if (isConnected()) {
             textView.setBackgroundColor(0xFF00CC00);
             textView.setText("You are connected!");
             sendPostRequest();
-
         } else {
             textView.setText("You are NOT connected!");
+            displayResult();
+        }
+    }
+
+    private void displayResult() {
+        if (success) {
+            startActivity(new Intent(Loading.this, Success.class));
+        }
+        else {
+            startActivity(new Intent(Loading.this, Fail.class));
         }
     }
 
@@ -132,6 +142,9 @@ public class Loading extends AppCompatActivity {
                 dStream.flush();
                 dStream.close();
                 int responseCode = connection.getResponseCode();
+                if (responseCode == 200) {
+                    success = true;
+                }
 
                 System.out.println("\nSending 'POST' request to URL : " + url);
                 System.out.println("Post parameters : " + jsonString);
@@ -142,7 +155,7 @@ public class Loading extends AppCompatActivity {
                     public void run() {
                         //outputView.setText(output);
                         progress.dismiss();
-                        startActivity(new Intent(Loading.this, Fail.class));
+                        displayResult();
                         redirect.setEnabled(true);
                     }
                 });
