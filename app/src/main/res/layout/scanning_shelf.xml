@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="To Begin, Scan the Rack barcode"
+        android:text="@string/shelf_begin"
         android:id="@+id/instructions_shelf"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

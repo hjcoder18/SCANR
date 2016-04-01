@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Please scan the Bag&apos;s Barcode"
+        android:text="@string/search_bag"
         android:id="@+id/instructions"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -31,7 +31,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center"
@@ -44,7 +44,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/result_name"
         android:layout_below="@+id/input"
@@ -54,7 +54,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/student_inum"
@@ -65,7 +65,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/result_inum"
@@ -76,7 +76,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/bag_id"
@@ -87,7 +87,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/result_bag_id"
@@ -98,7 +98,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/room_code"
@@ -109,7 +109,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/result_room_code"
@@ -131,7 +131,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/ErrorMessages"

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">SCANR</string>
+    <string name="success_msg">Send Was Successful!</string>
+    <string name="fail_msg">Send Didn't Go Through</string>
+    <string name="shelf_begin">To Begin, Scan the Rack barcode</string>
+    <string name="bag_begin">Scan all bags on rack...\n When finished scan rack again</string>
+    <string name="search_bag">Please scan the Bag&apos;s Barcode</string>
+    <string name="connected">Are you connected?</string>
 </resources>
