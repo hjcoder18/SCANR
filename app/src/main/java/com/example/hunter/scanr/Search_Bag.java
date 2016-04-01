@@ -31,6 +31,18 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * SEARCH BAG CLASS
+ * All the variables and methods needed to allow the user to scan a bag and then view the content
+ * for that bag. It does this by having the user scan a bag, we connect with the University Store's
+ * API and it sends us a json object of the bag information. The bag content consist of the
+ * following:
+ *      Student's Name
+ *      Student's ID
+ *      Bag ID - the id of that bag
+ *      Room Code - the room the bag should be in
+ *      Rack ID - the rack the bag should be on
+ */
 public class Search_Bag extends AppCompatActivity {
 
     //non-UI stuff
@@ -120,6 +132,11 @@ public class Search_Bag extends AppCompatActivity {
         }
     };
 
+    /**
+     * CLEAR FIELDS
+     * Clears the fields of the bag content including the error messsages that may have poped up
+     * @param v - needed for button
+     */
     public void ClearFields(View v) {
         name.setText("");
         Inum.setText("");
@@ -128,6 +145,10 @@ public class Search_Bag extends AppCompatActivity {
         errors.setText("");
     }
 
+    /**
+     * CLEAR DATA
+     * Clears the data of the bag content
+     */
     public void ClearData() {
         name.setText("");
         Inum.setText("");
@@ -135,20 +156,29 @@ public class Search_Bag extends AppCompatActivity {
         roomCode.setText("");
     }
 
+    /**
+     * CHECK BAG
+     * Checks the bar code of the object being scanned and determines if it is a bag. Returns true
+     * if it is a bag, otherwise returns false
+     * @param text - the barcode that was scanned
+     * @return true or false
+     */
     boolean checkBag(String text) {
         Matcher bagMatch = bagPattern.matcher(text);
         return bagMatch.matches();
     }
 
     /**
-     * SEND GET REQUEST sends a get request to the url for processing.
+     * SEND GET REQUEST
+     * Sends a get request to the url for processing.
      */
     public void sendGetRequest() {
         new GetClass(this).execute();
     }
 
     /**
-     * Get CLASS - takes care of get requests
+     * Get CLASS
+     * Takes care of get requests
      */
     private class GetClass extends AsyncTask<String, Void, Void> {
 
@@ -210,11 +240,11 @@ public class Search_Bag extends AppCompatActivity {
                         progress.dismiss();
                     }
                 });
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
+            } catch (java.net.SocketTimeoutException e) {
+                progress.setTitle("Error: Failed to connect");
+                progress.setMessage("Please try again");
                 e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
