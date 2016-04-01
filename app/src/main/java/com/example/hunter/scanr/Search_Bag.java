@@ -210,11 +210,11 @@ public class Search_Bag extends AppCompatActivity {
                         progress.dismiss();
                     }
                 });
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
+            } catch (java.net.SocketTimeoutException e) {
+                progress.setTitle("Error: Failed to connect");
+                progress.setMessage("Please try again");
                 e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -160,8 +160,9 @@ public class Loading extends AppCompatActivity {
                     }
                 });
 
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
+            } catch (java.net.SocketTimeoutException e) {
+                progress.setTitle("Error: Failed to connect");
+                progress.setMessage("Please try again");
                 e.printStackTrace();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
