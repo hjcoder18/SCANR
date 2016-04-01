@@ -34,6 +34,7 @@ public class Scan_Shelf extends AppCompatActivity {
     Pattern shelfPattern = Pattern.compile("([A-Z])-([A-Z])-(\\d+)");
     TextView errors;
     private EditText txtInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
