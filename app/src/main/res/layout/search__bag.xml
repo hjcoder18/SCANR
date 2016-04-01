@@ -31,6 +31,7 @@
 
     <TextView
         android:layout_width="wrap_content"
+        android:textSize="18dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center"
@@ -43,6 +44,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="18dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/result_name"
         android:layout_below="@+id/input"
@@ -52,6 +54,7 @@
 
     <TextView
         android:layout_width="wrap_content"
+        android:textSize="18dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/student_inum"
@@ -62,6 +65,7 @@
 
     <TextView
         android:layout_width="wrap_content"
+        android:textSize="18dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/result_inum"
@@ -72,6 +76,7 @@
 
     <TextView
         android:layout_width="wrap_content"
+        android:textSize="18dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/bag_id"
@@ -82,6 +87,7 @@
 
     <TextView
         android:layout_width="wrap_content"
+        android:textSize="18dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/result_bag_id"
@@ -92,6 +98,7 @@
 
     <TextView
         android:layout_width="wrap_content"
+        android:textSize="18dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/room_code"
@@ -102,6 +109,7 @@
 
     <TextView
         android:layout_width="wrap_content"
+        android:textSize="18dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/result_room_code"
@@ -116,18 +124,22 @@
         android:text="Clear"
         android:background="@drawable/button"
         android:id="@+id/clearButton"
-        android:layout_below="@+id/ErrorMessages"
-        android:layout_centerHorizontal="true" />
+        android:onClick="ClearFields"
+        android:layout_below="@+id/result_room_code"
+        android:layout_alignRight="@+id/input"
+        android:layout_alignEnd="@+id/input" />
 
     <TextView
         android:layout_width="wrap_content"
+        android:textSize="18dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/ErrorMessages"
-        android:layout_below="@+id/room_code"
-        android:layout_alignRight="@+id/result_room_code"
-        android:layout_alignEnd="@+id/result_room_code"
+        android:textColor="@color/ErrorRed"
+        android:layout_toLeftOf="@+id/clearButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/clearButton"
+        android:layout_alignBottom="@+id/clearButton" />
 
 </RelativeLayout>

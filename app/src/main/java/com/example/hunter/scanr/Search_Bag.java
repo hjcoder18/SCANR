@@ -16,6 +16,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,11 +36,10 @@ public class Search_Bag extends AppCompatActivity {
     //non-UI stuff
     private static final String TAG = "SearchBagActivity";
     Pattern bagPattern = Pattern.compile("\\/C\\/C\\d+\\/C\\/C");
-    private final long DELAY = 5000; // 10 nano second delay
+    private final long DELAY = 10; // 10 nano second delay
     String bagCode;
     String incomplete_url = "https://ustorewebsb.byui.edu/Ordering/Audit/GetItem?itemId=";
     private ProgressDialog progress;
-    Bag studentBag;
 
     //UI stuff
     private EditText input;
@@ -44,7 +48,6 @@ public class Search_Bag extends AppCompatActivity {
     TextView bagId;
     TextView roomCode;
     TextView errors;
-    TextView output;
     Button clearButton;
 
     @Override
@@ -62,7 +65,6 @@ public class Search_Bag extends AppCompatActivity {
         roomCode = (TextView) findViewById(R.id.result_room_code);
         errors = (TextView) findViewById(R.id.ErrorMessages);
         clearButton = (Button) findViewById(R.id.clearButton);
-        //studentBag = new Bag();
     }
 
     TextWatcher watcher = new TextWatcher() {
@@ -104,6 +106,7 @@ public class Search_Bag extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         errors.setText("ERROR: Unrecognized Barcode");
+                                        ClearData();
                                         input.setText("");
                                     }
                                 });
@@ -123,6 +126,13 @@ public class Search_Bag extends AppCompatActivity {
         bagId.setText("");
         roomCode.setText("");
         errors.setText("");
+    }
+
+    public void ClearData() {
+        name.setText("");
+        Inum.setText("");
+        bagId.setText("");
+        roomCode.setText("");
     }
 
     boolean checkBag(String text) {
@@ -150,7 +160,8 @@ public class Search_Bag extends AppCompatActivity {
 
         protected void onPreExecute() {
             progress = new ProgressDialog(this.context);
-            progress.setMessage("Loading");
+            progress.setTitle("Looking for that bag now");
+            progress.setMessage("Please Wait...");
             progress.show();
         }
 
@@ -160,7 +171,6 @@ public class Search_Bag extends AppCompatActivity {
                 URL url = new URL(incomplete_url + bagCode);
 
                 HttpURLConnection c = (HttpURLConnection) url.openConnection();
-                //String urlParameters = "fizz=buzz";
                 c.setRequestMethod("GET");
                 c.setRequestProperty("Content-Length", "0");
                 c.setRequestProperty("USER-AGENT", "Mozilla/5.0");
@@ -172,28 +182,30 @@ public class Search_Bag extends AppCompatActivity {
                 c.connect();
                 int status = c.getResponseCode();
 
-                final StringBuilder output = new StringBuilder("Request URL " + url);//maybe unnecessary
-
                 BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                String theJsonString = "";
                 String line = "";
-                StringBuilder responseOutput = new StringBuilder();
-                System.out.println("output===============" + br);
-                while ((line = br.readLine()) != null) {
-                    responseOutput.append(line);
-                }
-                Gson gson = new Gson();
-                studentBag = gson.fromJson(br, Bag.class);
-                System.out.println(studentBag);
-                br.close();
-                //output.append(responseOutput.toString());
-                String toConvert = output.toString();
-                studentBag = gson.fromJson(toConvert, Bag.class);
-                System.out.println(studentBag);
-                Search_Bag.this.runOnUiThread(new Runnable() {
 
+                while ((line = br.readLine()) != null) {
+                    theJsonString = theJsonString + line;
+                }
+
+                JSONObject jo = new JSONObject(theJsonString);
+                final String fname = jo.get("studentFirstName").toString();
+                final String lname = jo.get("studentLastName").toString();
+                final String bid = jo.get("bagId").toString();
+                final String sid = jo.get("studentID").toString();
+                final String shid = jo.get("shelfID").toString();
+
+                br.close();
+
+                Search_Bag.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        name.setText(studentBag.getStudentName());
+                        name.setText(fname + " " + lname);
+                        Inum.setText(sid);
+                        bagId.setText(bid);
+                        roomCode.setText(shid);
 
                         progress.dismiss();
                     }
@@ -204,9 +216,10 @@ public class Search_Bag extends AppCompatActivity {
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
             return null;
         }
     }
-
 }

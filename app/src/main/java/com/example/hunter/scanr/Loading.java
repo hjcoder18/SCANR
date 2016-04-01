@@ -34,7 +34,6 @@ public class Loading extends AppCompatActivity {
 
     private static final String TAG = "LoadingActivity";
     TextView textView;
-    TextView outputView;
     String jsonString;
     private ProgressDialog progress;
 
@@ -60,8 +59,6 @@ public class Loading extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading_page);
         textView = (TextView) findViewById(R.id.isConnected);
-        outputView = (TextView) findViewById(R.id.jsonContent);
-        outputView.setMovementMethod(new ScrollingMovementMethod());
 
         if (isConnected()) {
             textView.setBackgroundColor(0xFF00CC00);

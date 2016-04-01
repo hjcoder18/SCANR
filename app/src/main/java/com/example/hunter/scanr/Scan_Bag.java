@@ -63,7 +63,7 @@ public class Scan_Bag extends AppCompatActivity {
     private EditText txtInput;
     //private ListView viewText; COMMENTED OUT: never used.
     private String shelfId;
-    private final long DELAY = 5000; // 10 nano second delay
+    private final long DELAY = 10; // 10 nano second delay
     Button sendButton;
     TextView errors;
 
@@ -153,7 +153,7 @@ public class Scan_Bag extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            errors.setText("ERROR: Unrecognized Barcode, scan bags on rack " + shelfId + " or scan Rack again to begin processing.");
+                                            errors.setText("ERROR: Unrecognized Barcode, scan rack " + shelfId + " or scan more bags.");
                                             txtInput.setText("");
                                         }
                                     });
