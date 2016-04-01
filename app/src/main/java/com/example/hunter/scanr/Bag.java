@@ -18,13 +18,6 @@ import android.util.Log;
  */
 public class Bag extends AppCompatActivity{
 
-    /*8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
-      8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
-      88 DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME,  88
-      88 DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME, DELETE ME   88
-      8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
-      8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +26,11 @@ public class Bag extends AppCompatActivity{
 
     private static final String TAG = "BagClass"; // To be used for log
 
-    private String bagId; //the bag id is the main key and the primary key by which they are ordered...
-    private String studentFirstName; // used by bag class
-    private String studentLastName;  // used by bag class
-    private long studentID;           // The student
-    private String shelfID; //
-    //private int bagIndex;  // used by Shelf class
+    private String bagId;
+    private String studentFirstName;
+    private String studentLastName;
+    private long studentID;
+    private String shelfID;
 
     /**
      * Default Constructor
@@ -52,6 +44,15 @@ public class Bag extends AppCompatActivity{
     }
 
 
+    /**
+     * Creates a bag ID
+     *
+     * @param bagid - bag id
+     * @param fName - first name
+     * @param lName - last name
+     * @param shelfid - shelf id
+     * @param studId - student id
+     */
     public Bag(String bagid, String fName, String lName, String shelfid, long studId) {
         bagId = bagid;
         studentID = studId;
@@ -60,18 +61,42 @@ public class Bag extends AppCompatActivity{
         studentLastName = lName;
     }
 
+    /**
+     * GET STUDENT FIRST NAME
+     * Returns the student's first name.
+     *
+     * @return student's first name
+     */
     public String getStudentFirstName() {
         return studentFirstName;
     }
 
+    /**
+     * SET STUDENT FIRST NAME
+     * Set's the student's first name.
+     *
+     * @param studentFirstName - the student's first name
+     */
     public void setStudentFirstName(String studentFirstName) {
         this.studentFirstName = studentFirstName;
     }
 
+    /**
+     * GET STUDENT LAST NAME
+     * Get's the student's last name
+     *
+     * @return student's last name
+     */
     public String getStudentLastName() {
         return studentLastName;
     }
 
+    /**
+     * SET STUDENT LAST NAME
+     * Set's the student's last name
+     *
+     * @param studentLastName - student's last name
+     */
     public void setStudentLastName(String studentLastName) {
         this.studentLastName = studentLastName;
     }
