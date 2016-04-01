@@ -45,8 +45,15 @@
                 android:value=".Scan_Shelf" />
         </activity>
         <activity android:name=".Loading" />
-        <activity android:name=".Success" android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".Fail" android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".Success"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".Fail"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".Search_Fail"
+            android:theme="@style/AppTheme.CustomTheme"/>
     </application>
 
 </manifest>
