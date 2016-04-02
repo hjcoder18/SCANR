@@ -2,6 +2,7 @@ package com.example.hunter.scanr;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -68,6 +69,7 @@ public class Search_Bag extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search__bag);
+
         //Main initialization of all fields...
         input = (EditText) findViewById(R.id.input);
         input.addTextChangedListener(watcher);
@@ -211,6 +213,9 @@ public class Search_Bag extends AppCompatActivity {
                 c.setReadTimeout(5000);
                 c.connect();
                 int status = c.getResponseCode();
+                if (status != 200) {
+                    startActivity(new Intent(Search_Bag.this, Search_Fail.class));
+                }
 
                 BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
                 String theJsonString = "";
@@ -236,7 +241,6 @@ public class Search_Bag extends AppCompatActivity {
                         Inum.setText(sid);
                         bagId.setText(bid);
                         roomCode.setText(shid);
-
                         progress.dismiss();
                     }
                 });

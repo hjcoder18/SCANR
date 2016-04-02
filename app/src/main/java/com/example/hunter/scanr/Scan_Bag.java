@@ -237,12 +237,10 @@ public class Scan_Bag extends AppCompatActivity {
     void addToList(String text) {
         //first add bag to actual list of object
         rack.add(text);
+
         //this next list is just for display
         listOfBags.add(text);
         adapt.notifyDataSetChanged();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(rack);
-//        showJson(json);
     }
 
     /**
@@ -298,7 +296,7 @@ public class Scan_Bag extends AppCompatActivity {
         startActivity(Loading_Act);
     }
 
-    //code for william
+    // code that will serve a good purpose in the future
 //    public void sendButton(View v) {
 //        Gson gson = new Gson();
 //        String jSon = gson.toJson(rack);

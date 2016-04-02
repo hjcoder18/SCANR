@@ -45,6 +45,7 @@ public class Loading extends AppCompatActivity {
         //grab the json file from scan-bag
         Intent intentExtras = getIntent();
         Bundle extrasBundle = intentExtras.getExtras();
+
         // check to see if bundle is empty
         if (!extrasBundle.isEmpty()) {
             // check to see if bundle contains the shelfID key
@@ -192,7 +193,7 @@ public class Loading extends AppCompatActivity {
             }catch (IOException e) {
                 progress.dismiss();
                 progress.setTitle("IO EXCEPTION CAUGHT");
-                progress.setMessage("IOEXCEPTION FIRED");
+                progress.setMessage("IO EXCEPTION FIRED");
                 progress.show();
                 e.printStackTrace();
             }
