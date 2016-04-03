@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="#FF0000"
+        android:background="@color/colorPrimary"
         android:textColor="#FFF"
         android:textSize="18sp"
         android:text="@string/connected"
@@ -44,5 +44,14 @@
         android:layout_marginTop="50dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/scanr"
+        android:scaleType="fitCenter"
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>
