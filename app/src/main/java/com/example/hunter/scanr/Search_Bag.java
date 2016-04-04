@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -62,6 +63,8 @@ public class Search_Bag extends AppCompatActivity {
     TextView roomCode;
     TextView errors;
     Button clearButton;
+    Fail failMessage;
+    boolean timeout = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +161,15 @@ public class Search_Bag extends AppCompatActivity {
         roomCode.setText("");
     }
 
+    private void displaySearchFailure() {
+        if (timeout) {
+            startActivity(new Intent(Search_Bag.this, Search_Fail.class));
+        }
+        else {
+            startActivity(new Intent(Search_Bag.this, Search_Fail.class));
+        }
+    }
+
     /**
      * CHECK BAG
      * Checks the bar code of the object being scanned and determines if it is a bag. Returns true
@@ -199,10 +211,11 @@ public class Search_Bag extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... params) {
+            HttpURLConnection c = null;
             try {
                 URL url = new URL(incomplete_url + bagCode);
 
-                HttpURLConnection c = (HttpURLConnection) url.openConnection();
+                c = (HttpURLConnection) url.openConnection();
                 c.setRequestMethod("GET");
                 c.setRequestProperty("Content-Length", "0");
                 c.setRequestProperty("USER-AGENT", "Mozilla/5.0");
@@ -210,12 +223,15 @@ public class Search_Bag extends AppCompatActivity {
                 c.setUseCaches(false);
                 c.setAllowUserInteraction(false);
                 c.setConnectTimeout(5000);
-                c.setReadTimeout(5000);
+                c.setReadTimeout(10000);
                 c.connect();
                 int status = c.getResponseCode();
                 if (status != 200) {
-                    startActivity(new Intent(Search_Bag.this, Search_Fail.class));
+                    progress.dismiss();
+                    Toast.makeText(getApplicationContext(), status, Toast.LENGTH_LONG).show();
+                    displaySearchFailure();
                 }
+                Toast.makeText(getApplicationContext(), status, Toast.LENGTH_LONG).show();
 
                 BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
                 String theJsonString = "";
@@ -245,12 +261,17 @@ public class Search_Bag extends AppCompatActivity {
                     }
                 });
             } catch (java.net.SocketTimeoutException e) {
-                progress.setTitle("Error: Failed to connect");
-                progress.setMessage("Please try again");
+                progress.dismiss();
+                timeout = true;
+                displaySearchFailure();
                 e.printStackTrace();
             } catch (IOException e) {
+                progress.dismiss();
+                displaySearchFailure();
                 e.printStackTrace();
             } catch (JSONException e) {
+                progress.dismiss();
+                displaySearchFailure();
                 e.printStackTrace();
             }
             return null;

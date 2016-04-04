@@ -82,9 +82,21 @@ public class Loading extends AppCompatActivity {
     private void displayResult() {
         if (success) {
             startActivity(new Intent(Loading.this, Success.class));
+            Loading.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    redirect.setEnabled(true);
+                }
+            });
         }
         else {
             startActivity(new Intent(Loading.this, Fail.class));
+            Loading.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    redirect.setEnabled(true);
+                }
+            });
         }
     }
 
@@ -143,12 +155,14 @@ public class Loading extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... params) {
+            HttpURLConnection connection = null;
+
             try {
                 //final TextView outputView = (TextView) findViewById(R.id.jsonContent);
 
                 URL url = new URL("https://ustorewebsb.byui.edu/Ordering/Audit/RackData");
 
-                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+                connection = (HttpURLConnection)url.openConnection();
 
                 //set a timeout to avoid infinite waiting times
                 connection.setConnectTimeout(5000); //5 seconds until a connection times out
@@ -167,9 +181,7 @@ public class Loading extends AppCompatActivity {
                 } catch (java.net.SocketTimeoutException e) {
                     connection.disconnect();
                     progress.dismiss();
-                    progress.setTitle("Failed to connect to server");
-                    progress.setMessage("Please try again");
-                    progress.show();
+                    success = false;
                     e.printStackTrace();
                 }
                 int responseCode = connection.getResponseCode();
@@ -191,12 +203,16 @@ public class Loading extends AppCompatActivity {
                 });
                 connection.disconnect();
             }catch (IOException e) {
+                connection.disconnect();
                 progress.dismiss();
-                progress.setTitle("IO EXCEPTION CAUGHT");
-                progress.setMessage("IO EXCEPTION FIRED");
-                progress.show();
+                success = false;
                 e.printStackTrace();
             }
+
+            if (!success) {
+                displayResult();
+            }
+
             return null;
         }
 
