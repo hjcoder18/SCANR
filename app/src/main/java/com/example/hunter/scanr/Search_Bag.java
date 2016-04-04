@@ -163,7 +163,7 @@ public class Search_Bag extends AppCompatActivity {
 
     private void displaySearchFailure() {
         if (timeout) {
-            startActivity(new Intent(Search_Bag.this, Search_Fail.class));
+            startActivity(new Intent(Search_Bag.this, Timeout.class));
         }
         else {
             startActivity(new Intent(Search_Bag.this, Search_Fail.class));
@@ -228,11 +228,8 @@ public class Search_Bag extends AppCompatActivity {
                 int status = c.getResponseCode();
                 if (status != 200) {
                     progress.dismiss();
-                    Toast.makeText(getApplicationContext(), status, Toast.LENGTH_LONG).show();
                     displaySearchFailure();
                 }
-                Toast.makeText(getApplicationContext(), status, Toast.LENGTH_LONG).show();
-
                 BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
                 String theJsonString = "";
                 String line = "";

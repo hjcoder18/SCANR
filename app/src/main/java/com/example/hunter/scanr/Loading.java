@@ -38,6 +38,7 @@ public class Loading extends AppCompatActivity {
     Button redirect;
     Boolean success;
     private ProgressDialog progress;
+    boolean timeout = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,15 @@ public class Loading extends AppCompatActivity {
             });
         }
         else {
+            if (timeout) {
+                startActivity(new Intent(Loading.this, Timeout.class));
+                Loading.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        redirect.setEnabled(true);
+                    }
+                });
+            }
             startActivity(new Intent(Loading.this, Fail.class));
             Loading.this.runOnUiThread(new Runnable() {
                 @Override
@@ -182,6 +192,7 @@ public class Loading extends AppCompatActivity {
                     connection.disconnect();
                     progress.dismiss();
                     success = false;
+                    timeout = true;
                     e.printStackTrace();
                 }
                 int responseCode = connection.getResponseCode();

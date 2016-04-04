@@ -4,18 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
-/**
- * SUCCESS CLASS
- * This will allow a user friend pop window to appear when the contents have been successfully sent
- * to the bookstore's API.
- */
-public class Success extends AppCompatActivity {
+public class Timeout extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.success_page);
-
+        setContentView(R.layout.timeout);
         // create a metric system
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);

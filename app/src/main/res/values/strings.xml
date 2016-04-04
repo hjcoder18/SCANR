@@ -2,6 +2,7 @@
     <string name="app_name">SCANR</string>
     <string name="success_msg">Send Was Successful!</string>
     <string name="fail_msg">Send Didn\'t Go Through</string>
+    <string name="Timeout">Connection Timed out, Try again</string>
     <string name="search_msg">Bag Content Couldn\'t Be Found</string>
     <string name="shelf_begin">To Begin, Scan the Rack barcode</string>
     <string name="bag_begin">Scan all bags on rack…\n When finished scan rack again</string>

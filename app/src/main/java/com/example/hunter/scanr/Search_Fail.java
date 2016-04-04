@@ -25,6 +25,6 @@ public class Search_Fail extends AppCompatActivity {
         int height = dm.heightPixels;
 
         // shrink activity to the size of a pop up window
-        getWindow().setLayout((int) (width * .8), (int) (height * .2));
+        getWindow().setLayout((int) (width * .8), (int) (height * .3));
     }
 }

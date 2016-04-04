@@ -53,6 +53,9 @@
             android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".Search_Fail"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".Timeout"
             android:theme="@style/AppTheme.CustomTheme"/>
     </application>
 
