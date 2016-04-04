@@ -44,7 +44,8 @@
                 android:name=".android.support.PARENT_ACTIVITY"
                 android:value=".Scan_Shelf" />
         </activity>
-        <activity android:name=".Loading" />
+        <activity
+            android:name=".Loading" />
         <activity
             android:name=".Success"
             android:theme="@style/AppTheme.CustomTheme" />
@@ -60,7 +61,8 @@
         <activity
             android:name=".Report"
             android:theme="@style/AppTheme.CustomTheme"/>
-        <activity android:name=".About"
+        <activity
+            android:name=".About"
             android:theme="@style/AppTheme.CustomTheme" />
     </application>
 
