@@ -5,6 +5,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 /**
@@ -30,6 +33,26 @@ public class Home extends AppCompatActivity {
         } catch (NullPointerException e) {
             Log.e(TAG, "Failed to create University Store Logo", e);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mi = getMenuInflater();
+        mi.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.about_scanr:
+                startActivity(new Intent(Home.this, About.class));
+                break;
+            case R.id.report_bug:
+                startActivity(new Intent(Home.this, Report.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

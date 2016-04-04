@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -294,5 +297,25 @@ public class Scan_Bag extends AppCompatActivity {
         bundle.putString("jsonString", jsonString);
         Loading_Act.putExtras(bundle);
         startActivity(Loading_Act);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mi = getMenuInflater();
+        mi.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.about_scanr:
+                startActivity(new Intent(Scan_Bag.this, About.class));
+                break;
+            case R.id.report_bug:
+                startActivity(new Intent(Scan_Bag.this, Report.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

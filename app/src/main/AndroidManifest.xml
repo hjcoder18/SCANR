@@ -57,6 +57,11 @@
         <activity
             android:name=".Timeout"
             android:theme="@style/AppTheme.CustomTheme"/>
+        <activity
+            android:name=".Report"
+            android:theme="@style/AppTheme.CustomTheme"/>
+        <activity android:name=".About"
+            android:theme="@style/AppTheme.CustomTheme" />
     </application>
 
 </manifest>

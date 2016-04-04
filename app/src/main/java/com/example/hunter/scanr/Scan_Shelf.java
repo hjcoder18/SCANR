@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -43,6 +46,26 @@ public class Scan_Shelf extends AppCompatActivity {
         txtInput = (EditText) findViewById(R.id.input);
         errors = (TextView) findViewById(R.id.ErrorMessages);
         errors.setText("");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mi = getMenuInflater();
+        mi.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.about_scanr:
+                startActivity(new Intent(Scan_Shelf.this, About.class));
+                break;
+            case R.id.report_bug:
+                startActivity(new Intent(Scan_Shelf.this, Report.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.test.mainmenu.MainActivity">
+    <item
+        android:id="@+id/about_scanr"
+        android:title="About SCANR"/>
+    <item
+        android:id="@+id/report_bug"
+        android:title="Report Bug"/>
+</menu>
